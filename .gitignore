@@ -1,0 +1,13 @@
+# Los .gitignore de frontend/ y backend/ cubren lo específico de cada uno.
+.env
+.env.local
+node_modules/
+dist/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Respaldos comprimidos: no se versionan.
+docs/archivo/*.zip
