@@ -1,4 +1,4 @@
-import { esUrlExternaSegura } from '../../../shared/utils/validators.js';
+import { esUrlExternaSegura } from '../../../utils/validators.js';
 
 const MSG_ERROR = 'No pudimos reproducir la transmisión. Inténtalo de nuevo.';
 

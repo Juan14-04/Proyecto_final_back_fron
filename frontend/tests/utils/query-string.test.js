@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildQuery, parseHash, parseQuery } from '../../src/shared/utils/query-string.js';
+import { buildQuery, parseHash, parseQuery } from '../../src/utils/query-string.js';
 
 test('buildQuery omite vacíos y codifica', () => {
   assert.equal(

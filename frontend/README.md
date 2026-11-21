@@ -69,11 +69,22 @@ evento muestra ese tráiler; no debe usarse como sustituto de la transmisión pr
 
 ## Arquitectura
 
-`app → features → shared → core` (nunca al revés). Cada feature (`auth`, `catalog`, `checkout`,
-`watch`, `account`, `studio`, `admin`) expone su API pública en `index.js`; ninguna importa archivos
-internos de otra. Las features se comunican por `shared`, `core` o el bus de eventos (p. ej.
-`compra:aprobada`, que actualiza el detalle de un evento tras pagar). Capas dentro de una feature:
-`pages → service → api → core/http`. Estas reglas las vigila `tests/auditoria/reglas.test.js`.
+SPA nativa (Vanilla JS + Bootstrap 5), organizada así:
+
+| Carpeta de `src/` | Responsabilidad |
+| --- | --- |
+| `router/` | Enrutamiento: tabla de rutas, router por hash, guards de rol y layouts. |
+| `state/` | Gestión de estado: store observable, sesión y bus de eventos. |
+| `services/http/` | Comunicación con la API REST (cliente HTTP, JWT, errores normalizados). |
+| `components/` | Componentes reutilizables (navbar, tarjetas, modal, formularios…). |
+| `utils/` · `styles/` | Utilidades y estilos globales. |
+| `features/<funcionalidad>/` | `pages/` (páginas), `components/` y `services/` de cada funcionalidad. |
+
+Dependencias en un solo sentido: `router → features → components/utils → state/services` (nunca al revés). Cada feature
+(`auth`, `catalog`, `checkout`, `watch`, `account`, `studio`, `admin`) expone su API pública en
+`index.js`; ninguna importa archivos internos de otra. Se comunican por `components`, `state` o el bus
+de eventos (p. ej. `compra:aprobada`). Dentro de una feature: `pages → services/*.service.js →
+services/*.api.js → src/services/http`. Estas reglas las vigila `tests/auditoria/reglas.test.js`.
 
 ## Seguridad
 

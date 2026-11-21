@@ -1,8 +1,8 @@
-import { html } from '../../../shared/utils/html.js';
-import { fromHtml } from '../../../shared/utils/dom.js';
-import { setFieldError } from '../../../shared/ui/form-field.js';
-import { openModal } from '../../../shared/ui/modal.js';
-import { MOTIVO_MAX, validarMotivo } from '../admin.service.js';
+import { html } from '../../../utils/html.js';
+import { fromHtml } from '../../../utils/dom.js';
+import { setFieldError } from '../../../components/form-field.js';
+import { openModal } from '../../../components/modal.js';
+import { MOTIVO_MAX, validarMotivo } from '../services/admin.service.js';
 
 /**
  * Diálogo que pide un motivo obligatorio (suspender un evento, rechazar un retiro). Resuelve el

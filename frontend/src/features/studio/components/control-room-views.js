@@ -1,8 +1,8 @@
-import { html } from '../../../shared/utils/html.js';
-import { backLink } from '../../../shared/ui/back-link.js';
-import { formatDateTime } from '../../../shared/utils/format-date.js';
+import { html } from '../../../utils/html.js';
+import { backLink } from '../../../components/back-link.js';
+import { formatDateTime } from '../../../utils/format-date.js';
 import { badgeEstado } from './studio-views.js';
-import { estadoDePasos, textoDuracion } from '../studio.service.js';
+import { estadoDePasos, textoDuracion } from '../services/studio.service.js';
 
 const ETIQUETA_PASO = { hecho: 'Completado', activo: 'En curso', bloqueado: 'Pendiente' };
 

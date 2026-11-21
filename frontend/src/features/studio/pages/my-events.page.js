@@ -1,11 +1,11 @@
 import '../studio.css';
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { activarFallbackPortadas } from '../../../shared/ui/cover.js';
-import { confirmDialog } from '../../../shared/ui/confirm-dialog.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { pagination } from '../../../shared/ui/pagination.js';
-import { showToast } from '../../../shared/ui/toast.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { activarFallbackPortadas } from '../../../components/cover.js';
+import { confirmDialog } from '../../../components/confirm-dialog.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { pagination } from '../../../components/pagination.js';
+import { showToast } from '../../../components/toast.js';
 import { esqueletoLista, filaEvento } from '../components/studio-views.js';
 import {
   ESTADOS_FILTRO,
@@ -14,8 +14,8 @@ import {
   eliminar,
   listarEventos,
   publicar,
-} from '../studio.service.js';
-import { irAlInicioDe } from '../../../shared/utils/motion.js';
+} from '../services/studio.service.js';
+import { irAlInicioDe } from '../../../utils/motion.js';
 
 const TEXTO_CANCELAR =
   'Si cancelas este evento dejará de estar a la venta y las entradas ya vendidas se reembolsarán. Esta acción no se puede deshacer.';

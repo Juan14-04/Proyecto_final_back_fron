@@ -1,13 +1,13 @@
 import { test, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { ApiError } from '../../src/core/http/api-error.js';
-import { cerrarSesion, iniciarSesion } from '../../src/core/session/session.js';
+import { ApiError } from '../../src/services/http/api-error.js';
+import { cerrarSesion, iniciarSesion } from '../../src/state/session/session.js';
 import { activarToggle } from '../../src/features/catalog/components/toggle-button.js';
 import {
   crearConjuntoDeIds,
   favoritos,
   puedeUsarSocial,
-} from '../../src/features/catalog/social.service.js';
+} from '../../src/features/catalog/services/social.service.js';
 import { favoriteButton } from '../../src/features/catalog/components/favorite-button.js';
 import { followButton } from '../../src/features/catalog/components/follow-button.js';
 

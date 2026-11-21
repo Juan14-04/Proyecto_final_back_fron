@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ApiError } from '../../src/core/http/api-error.js';
+import { ApiError } from '../../src/services/http/api-error.js';
 import {
   GRUPOS_CONFIGURACION,
   filtrosAQuery,
@@ -18,7 +18,7 @@ import {
   textoDeAviso,
   validarMotivo,
   validarRango,
-} from '../../src/features/admin/admin.service.js';
+} from '../../src/features/admin/services/admin.service.js';
 
 const q = (texto) => new URLSearchParams(texto);
 const UUID = '3f2a9c1e-7b0d-4c55-9a1e-2d6f8b1c0a11';

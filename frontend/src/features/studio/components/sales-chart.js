@@ -1,6 +1,6 @@
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { crearGraficaBarras, vistaGraficaBarras } from '../../../shared/ui/bar-chart.js';
-import { etiquetaDia, resumenGrafica } from '../finanzas.service.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { crearGraficaBarras, vistaGraficaBarras } from '../../../components/bar-chart.js';
+import { etiquetaDia, resumenGrafica } from '../services/finanzas.service.js';
 
 const compacto = new Intl.NumberFormat('es-CO', {
   style: 'currency',

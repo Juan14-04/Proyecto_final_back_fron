@@ -1,18 +1,18 @@
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { validarImagen, validarRequerido } from '../../../shared/utils/validators.js';
-import { avatar, activarFallbackAvatares } from '../../../shared/ui/avatar.js';
-import { clearFieldErrors, formField, setFieldError } from '../../../shared/ui/form-field.js';
-import { errorState } from '../../../shared/ui/empty-state.js';
-import { skeletonBlock } from '../../../shared/ui/skeleton.js';
-import { showToast } from '../../../shared/ui/toast.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { validarImagen, validarRequerido } from '../../../utils/validators.js';
+import { avatar, activarFallbackAvatares } from '../../../components/avatar.js';
+import { clearFieldErrors, formField, setFieldError } from '../../../components/form-field.js';
+import { errorState } from '../../../components/empty-state.js';
+import { skeletonBlock } from '../../../components/skeleton.js';
+import { showToast } from '../../../components/toast.js';
 import {
   cambiarFoto,
   camposDeError,
   cargarPerfil,
   eliminarFoto,
   guardarPerfil,
-} from '../account.service.js';
+} from '../services/account.service.js';
 
 const ROLES = { USUARIO: 'Espectador', ARTISTA: 'Artista', ADMIN: 'Administrador' };
 const MAX_BIO = 1000;

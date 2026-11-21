@@ -18,7 +18,7 @@ import {
   mesInicial,
   moverMes,
   paginarLocal,
-} from '../../src/features/account/tickets.service.js';
+} from '../../src/features/account/services/tickets.service.js';
 
 const compra = (estado, evento = {}, extra = {}) => ({
   id: `c-${Math.random().toString(36).slice(2, 8)}`,

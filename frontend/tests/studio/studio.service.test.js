@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ApiError } from '../../src/core/http/api-error.js';
+import { ApiError } from '../../src/services/http/api-error.js';
 import {
   CAMPOS,
   accionesDeEvento,
@@ -15,8 +15,8 @@ import {
   textoDuracion,
   validarEvento,
   valoresIniciales,
-} from '../../src/features/studio/studio.service.js';
-import { isoToBogotaLocal } from '../../src/shared/utils/format-date.js';
+} from '../../src/features/studio/services/studio.service.js';
+import { isoToBogotaLocal } from '../../src/utils/format-date.js';
 
 const evento = (extra = {}) => ({
   id: 'e1',

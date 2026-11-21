@@ -4,10 +4,10 @@ import {
   artistasAQuery,
   leerFiltrosArtistas,
   textoSeguidores,
-} from '../../src/features/catalog/catalog.service.js';
-import { html } from '../../src/shared/utils/html.js';
-import { artistCard } from '../../src/shared/ui/artist-card.js';
-import { encontrarRuta } from '../../src/app/route-match.js';
+} from '../../src/features/catalog/services/catalog.service.js';
+import { html } from '../../src/utils/html.js';
+import { artistCard } from '../../src/components/artist-card.js';
+import { encontrarRuta } from '../../src/router/route-match.js';
 
 test('leerFiltrosArtistas recorta, limita y descarta páginas inválidas', () => {
   const f = leerFiltrosArtistas(new URLSearchParams(`q=%20luna%20&page=abc`));

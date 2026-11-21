@@ -1,7 +1,7 @@
-import { getUsuario } from '../../../core/session/session.js';
-import { html } from '../../../shared/utils/html.js';
-import { eventCard } from '../../../shared/ui/event-card.js';
-import { alternarFavorito, favoritos, puedeUsarSocial } from '../social.service.js';
+import { getUsuario } from '../../../state/session/session.js';
+import { html } from '../../../utils/html.js';
+import { eventCard } from '../../../components/event-card.js';
+import { alternarFavorito, favoritos, puedeUsarSocial } from '../services/social.service.js';
 import { activarToggle } from './toggle-button.js';
 
 const ETIQUETA = { si: 'Quitar de favoritos', no: 'Agregar a favoritos' };

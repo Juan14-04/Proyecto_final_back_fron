@@ -1,11 +1,11 @@
 import { test, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { cerrarSesion, iniciarSesion } from '../../src/core/session/session.js';
-import { requiereRol } from '../../src/app/guards.js';
-import { routes } from '../../src/app/routes.js';
-import { encontrarRuta } from '../../src/app/route-match.js';
-import { enlacesPorRol } from '../../src/shared/ui/navbar-links.js';
+import { cerrarSesion, iniciarSesion } from '../../src/state/session/session.js';
+import { requiereRol } from '../../src/router/guards.js';
+import { routes } from '../../src/router/routes.js';
+import { encontrarRuta } from '../../src/router/route-match.js';
+import { enlacesPorRol } from '../../src/components/navbar-links.js';
 import {
   badgeEstadoCompra,
   badgeEstadoEvento,
@@ -139,7 +139,7 @@ test('las listas bloquean botones, muestran el aviso y limpian listeners en dest
 
 test('el módulo admin no guarda nada en almacenamiento ni escribe en consola', () => {
   for (const archivo of [
-    'src/features/admin/admin.service.js',
+    'src/features/admin/services/admin.service.js',
     'src/features/admin/components/admin-list.js',
     'src/features/admin/components/dialogs.js',
     'src/features/admin/pages/users.page.js',
@@ -153,7 +153,7 @@ test('el módulo admin no guarda nada en almacenamiento ni escribe en consola', 
 
 test('la administración no ofrece una acción para crear otros administradores', () => {
   const pagina = readFileSync('src/features/admin/pages/users.page.js', 'utf8');
-  const api = readFileSync('src/features/admin/admin.api.js', 'utf8');
+  const api = readFileSync('src/features/admin/services/admin.api.js', 'utf8');
   assert.doesNotMatch(pagina, /Crear administrador|crearAdmin/);
   assert.doesNotMatch(api, /crearAdmin|api\.post\(['"`]\/admin\/usuarios/);
 });

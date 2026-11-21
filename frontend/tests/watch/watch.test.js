@@ -2,13 +2,13 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { ApiError } from '../../src/core/http/api-error.js';
+import { ApiError } from '../../src/services/http/api-error.js';
 import {
   clasificarErrorEntrar,
   decidirVista,
   entrarAlEvento,
   msHastaExpirar,
-} from '../../src/features/watch/watch.service.js';
+} from '../../src/features/watch/services/watch.service.js';
 import { crearPlayer } from '../../src/features/watch/player/player-adapter.js';
 import { HlsPlayer } from '../../src/features/watch/player/hls-player.js';
 import {

@@ -1,13 +1,13 @@
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { debounce } from '../../../shared/utils/debounce.js';
-import { activarFallbackPortadas } from '../../../shared/ui/cover.js';
-import { categoryChips } from '../../../shared/ui/category-chips.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { eventCardSkeleton } from '../../../shared/ui/event-card.js';
-import { pagination } from '../../../shared/ui/pagination.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { debounce } from '../../../utils/debounce.js';
+import { activarFallbackPortadas } from '../../../components/cover.js';
+import { categoryChips } from '../../../components/category-chips.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { eventCardSkeleton } from '../../../components/event-card.js';
+import { pagination } from '../../../components/pagination.js';
 import { activarFavoritos, eventCardConFavorito } from '../components/favorite-button.js';
-import { precargarSocial } from '../social.service.js';
+import { precargarSocial } from '../services/social.service.js';
 import {
   ESTADOS_CATALOGO,
   buscarEventos,
@@ -15,8 +15,8 @@ import {
   hayFiltros,
   leerFiltros,
   validarRango,
-} from '../catalog.service.js';
-import { irAlInicioDe } from '../../../shared/utils/motion.js';
+} from '../services/catalog.service.js';
+import { irAlInicioDe } from '../../../utils/motion.js';
 
 const SIN_FILTROS = { q: '', categoria: '', estado: '', desde: '', hasta: '', page: 1 };
 

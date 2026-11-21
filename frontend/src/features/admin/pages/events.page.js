@@ -1,8 +1,8 @@
-import { html } from '../../../shared/utils/html.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { formatDateMedium, formatTime } from '../../../shared/utils/format-date.js';
-import { CATEGORIAS, etiquetaCategoria } from '../../../shared/utils/categorias.js';
-import { confirmDialog } from '../../../shared/ui/confirm-dialog.js';
+import { html } from '../../../utils/html.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { formatDateMedium, formatTime } from '../../../utils/format-date.js';
+import { CATEGORIAS, etiquetaCategoria } from '../../../utils/categorias.js';
+import { confirmDialog } from '../../../components/confirm-dialog.js';
 import {
   ESTADOS_EVENTO,
   cargarEventos,
@@ -11,7 +11,7 @@ import {
   reactivarEvento,
   suspenderEvento,
   validarRango,
-} from '../admin.service.js';
+} from '../services/admin.service.js';
 import { crearPaginaLista } from '../components/admin-list.js';
 import { badge, badgeEstadoEvento, sinDato } from '../components/admin-ui.js';
 import { pedirMotivo, verDetalles } from '../components/dialogs.js';

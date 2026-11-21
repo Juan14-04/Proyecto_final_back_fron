@@ -5,7 +5,7 @@ import {
   formatDate,
   formatDateTime,
   formatTime,
-} from '../../src/shared/utils/format-date.js';
+} from '../../src/utils/format-date.js';
 
 const normal = (s) => s.replace(/\s/g, ' ');
 

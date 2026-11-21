@@ -1,12 +1,12 @@
 import '../studio.css';
-import { config } from '../../../core/config.js';
-import { sessionState } from '../../../core/session/session.js';
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { confirmDialog } from '../../../shared/ui/confirm-dialog.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { setFieldError } from '../../../shared/ui/form-field.js';
-import { showToast } from '../../../shared/ui/toast.js';
+import { config } from '../../../config.js';
+import { sessionState } from '../../../state/session/session.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { confirmDialog } from '../../../components/confirm-dialog.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { setFieldError } from '../../../components/form-field.js';
+import { showToast } from '../../../components/toast.js';
 import { esqueletoSala, vistaCredenciales, vistaSala } from '../components/control-room-views.js';
 import {
   cargarEvento,
@@ -17,7 +17,7 @@ import {
   puedeTransmitir,
   simularAudiencia,
   textoDuracion,
-} from '../studio.service.js';
+} from '../services/studio.service.js';
 
 export const INTERVALO_SONDEO_MS = 5000;
 

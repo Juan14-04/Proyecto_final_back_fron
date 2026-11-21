@@ -1,8 +1,8 @@
 import '../admin.css';
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { errorState } from '../../../shared/ui/empty-state.js';
-import { cargarConfiguracion, gruposDeConfiguracion } from '../admin.service.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { errorState } from '../../../components/empty-state.js';
+import { cargarConfiguracion, gruposDeConfiguracion } from '../services/admin.service.js';
 
 function esqueleto() {
   return html`<h1 class="mb-3">Información</h1>

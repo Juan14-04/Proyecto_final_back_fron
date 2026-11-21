@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createApiClient } from '../../src/core/http/api-client.js';
-import { ApiError } from '../../src/core/http/api-error.js';
+import { createApiClient } from '../../src/services/http/api-client.js';
+import { ApiError } from '../../src/services/http/api-error.js';
 
 const BASE = 'http://api.test/api/v1';
 

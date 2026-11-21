@@ -15,7 +15,7 @@ import {
   CAMPOS,
   camposEditables,
   valoresIniciales,
-} from '../../src/features/studio/studio.service.js';
+} from '../../src/features/studio/services/studio.service.js';
 
 const evento = (extra = {}) => ({
   id: 'e1',

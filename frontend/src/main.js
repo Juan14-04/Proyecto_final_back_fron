@@ -2,17 +2,17 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/space-grotesk';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './shared/styles/tokens.css';
-import './shared/styles/bootstrap-overrides.css';
-import './shared/styles/base.css';
-import './shared/styles/components.css';
+import './styles/tokens.css';
+import './styles/bootstrap-overrides.css';
+import './styles/base.css';
+import './styles/components.css';
 
-import { config } from './core/config.js';
-import { on } from './core/event-bus.js';
-import { restaurarSesion } from './core/session/session.js';
-import { showToast } from './shared/ui/toast.js';
-import { activarTrailers } from './shared/ui/trailer-bg.js';
-import { createRouter } from './app/router.js';
+import { config } from './config.js';
+import { on } from './state/event-bus.js';
+import { restaurarSesion } from './state/session/session.js';
+import { showToast } from './components/toast.js';
+import { activarTrailers } from './components/trailer-bg.js';
+import { createRouter } from './router/router.js';
 
 document.title = config.appName;
 

@@ -1,12 +1,12 @@
-import { activarFallbackPortadas } from '../../../shared/ui/cover.js';
-import { eventCardSkeleton } from '../../../shared/ui/event-card.js';
-import { html } from '../../../shared/utils/html.js';
+import { activarFallbackPortadas } from '../../../components/cover.js';
+import { eventCardSkeleton } from '../../../components/event-card.js';
+import { html } from '../../../utils/html.js';
 import {
   activarFavoritos,
   eventCardConFavorito,
   favoritosDelUsuario,
 } from '../../catalog/index.js';
-import { cargarFavoritos } from '../tickets.service.js';
+import { cargarFavoritos } from '../services/tickets.service.js';
 import { crearPaginaSocial } from './social-list.js';
 
 /** "Mis favoritos": eventos marcados, con el corazón para quitarlos (cambio optimista). */

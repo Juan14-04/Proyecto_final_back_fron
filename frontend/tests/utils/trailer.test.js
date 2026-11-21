@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { trailerDe, validarArchivoTrailer } from '../../src/shared/utils/trailer.js';
+import { trailerDe, validarArchivoTrailer } from '../../src/utils/trailer.js';
 
 const ORIGEN = 'http://localhost:5000';
 

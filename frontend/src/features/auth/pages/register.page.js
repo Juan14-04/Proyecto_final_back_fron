@@ -1,14 +1,14 @@
-import { config } from '../../../core/config.js';
-import { html } from '../../../shared/utils/html.js';
-import { fromHtml } from '../../../shared/utils/dom.js';
+import { config } from '../../../config.js';
+import { html } from '../../../utils/html.js';
+import { fromHtml } from '../../../utils/dom.js';
 import {
   validarEmail,
   validarPassword,
   validarRequerido,
-} from '../../../shared/utils/validators.js';
-import { clearFieldErrors, formField, setFieldError } from '../../../shared/ui/form-field.js';
-import { showToast } from '../../../shared/ui/toast.js';
-import { destinoTrasAutenticar, erroresDeFormulario, registrar } from '../auth.service.js';
+} from '../../../utils/validators.js';
+import { clearFieldErrors, formField, setFieldError } from '../../../components/form-field.js';
+import { showToast } from '../../../components/toast.js';
+import { destinoTrasAutenticar, erroresDeFormulario, registrar } from '../services/auth.service.js';
 import { aplicarErrores, marcarOcupado, mostrarAlerta } from '../components/form-feedback.js';
 
 function tarjetaRol({ valor, icono, titulo, texto, marcado }) {

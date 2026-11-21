@@ -1,9 +1,9 @@
-import { html } from '../../../shared/utils/html.js';
-import { setHtml } from '../../../shared/utils/dom.js';
-import { coverMedia } from '../../../shared/ui/cover.js';
-import { liveBadge, replayBadge } from '../../../shared/ui/live-badge.js';
-import { trailerDe } from '../../../shared/utils/trailer.js';
-import { youtubePlayerUrl } from '../../../shared/utils/youtube-url.js';
+import { html } from '../../../utils/html.js';
+import { setHtml } from '../../../utils/dom.js';
+import { coverMedia } from '../../../components/cover.js';
+import { liveBadge, replayBadge } from '../../../components/live-badge.js';
+import { trailerDe } from '../../../utils/trailer.js';
+import { youtubePlayerUrl } from '../../../utils/youtube-url.js';
 
 /** Segundos → `MM:SS` (o `H:MM:SS` desde la hora). */
 export function formatDuracion(segundos) {

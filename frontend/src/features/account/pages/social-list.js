@@ -1,9 +1,9 @@
 import '../account.css';
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { pagination } from '../../../shared/ui/pagination.js';
-import { irAlInicioDe } from '../../../shared/utils/motion.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { pagination } from '../../../components/pagination.js';
+import { irAlInicioDe } from '../../../utils/motion.js';
 
 /**
  * Crea una página de lista paginada cuyos elementos se pueden quitar con un botón (favoritos,
@@ -18,8 +18,8 @@ import { irAlInicioDe } from '../../../shared/utils/motion.js';
  *   vacio: {icono: string, titulo: string, mensaje: string, accion: {href: string, texto: string}},
  *   cargarPagina: (page: number, signal: AbortSignal) => Promise<{items: object[], page: number, page_size: number, total: number}>,
  *   alCargar: (items: object[]) => void,
- *   itemHtml: (item: object) => import('../../../shared/utils/html.js').SafeHtml,
- *   esqueleto: () => import('../../../shared/utils/html.js').SafeHtml,
+ *   itemHtml: (item: object) => import('../../../utils/html.js').SafeHtml,
+ *   esqueleto: () => import('../../../utils/html.js').SafeHtml,
  *   activar: (raiz: Element, callbacks: object) => () => void,
  *   preparar?: (raiz: Element) => void,
  * }} config

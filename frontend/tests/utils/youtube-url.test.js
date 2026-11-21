@@ -6,7 +6,7 @@ import {
   youtubePlayerUrl,
   youtubeThumbnailUrl,
   youtubeVideoId,
-} from '../../src/shared/utils/youtube-url.js';
+} from '../../src/utils/youtube-url.js';
 
 test('acepta los formatos comunes de enlaces HTTPS de YouTube', () => {
   for (const url of [

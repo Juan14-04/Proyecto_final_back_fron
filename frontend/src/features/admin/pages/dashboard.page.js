@@ -1,11 +1,11 @@
 import '../admin.css';
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { crearGraficaBarras, vistaGraficaBarras } from '../../../shared/ui/bar-chart.js';
-import { errorState } from '../../../shared/ui/empty-state.js';
-import { kpiCard, kpiGrid } from '../../../shared/ui/kpi-card.js';
-import { cargarDashboard, paresDe } from '../admin.service.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { crearGraficaBarras, vistaGraficaBarras } from '../../../components/bar-chart.js';
+import { errorState } from '../../../components/empty-state.js';
+import { kpiCard, kpiGrid } from '../../../components/kpi-card.js';
+import { cargarDashboard, paresDe } from '../services/admin.service.js';
 
 const ESTADOS = [
   ['BORRADOR', 'Borrador'],

@@ -1,9 +1,9 @@
-import { html } from '../../../shared/utils/html.js';
-import { fromHtml } from '../../../shared/utils/dom.js';
-import { validarEmail, validarRequerido } from '../../../shared/utils/validators.js';
-import { clearFieldErrors, formField, setFieldError } from '../../../shared/ui/form-field.js';
-import { showToast } from '../../../shared/ui/toast.js';
-import { destinoTrasAutenticar, erroresDeFormulario, iniciarSesion } from '../auth.service.js';
+import { html } from '../../../utils/html.js';
+import { fromHtml } from '../../../utils/dom.js';
+import { validarEmail, validarRequerido } from '../../../utils/validators.js';
+import { clearFieldErrors, formField, setFieldError } from '../../../components/form-field.js';
+import { showToast } from '../../../components/toast.js';
+import { destinoTrasAutenticar, erroresDeFormulario, iniciarSesion } from '../services/auth.service.js';
 import { aplicarErrores, marcarOcupado, mostrarAlerta } from '../components/form-feedback.js';
 
 /** @param {{query: URLSearchParams, signal: AbortSignal}} ctx */

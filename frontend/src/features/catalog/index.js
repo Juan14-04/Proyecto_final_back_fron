@@ -15,4 +15,4 @@ export { activarSeguir, artistCardConSeguir, followButton } from './components/f
 export {
   favoritos as favoritosDelUsuario,
   seguidos as seguidosDelUsuario,
-} from './social.service.js';
+} from './services/social.service.js';

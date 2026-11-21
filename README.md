@@ -9,15 +9,17 @@ descubra, compre su entrada y los vea en vivo o en replay.
 .
 ├── frontend/   SPA en JavaScript (Vanilla JS + Bootstrap 5 + Vite), organizada por features
 │   └── src/
-│       ├── app/        rutas, router, guards y layouts (composición de la aplicación)
-│       ├── core/       configuración, cliente HTTP, sesión, store y bus de eventos
-│       ├── shared/     componentes UI, utilidades y estilos reutilizables
+│       ├── router/     enrutamiento: rutas, router, guards y layouts
+│       ├── state/      gestión de estado: store, sesión y bus de eventos
+│       ├── services/   comunicación con la API REST (cliente HTTP)
+│       ├── components/ componentes reutilizables
+│       ├── utils/ · styles/   utilidades y estilos globales
 │       └── features/   auth · catalog · checkout · watch · account · studio · admin
 ├── backend/    API REST en Flask (/api/v1), PostgreSQL, migraciones y Docker Compose
 └── docs/       notas generales del proyecto y archivo de versiones anteriores
 ```
 
-Dependencias del frontend en un solo sentido: `app → features → shared → core`.
+Dependencias del frontend en un solo sentido: `router → features → components/utils → state/services`.
 
 ## Documentación
 

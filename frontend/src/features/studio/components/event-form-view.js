@@ -1,9 +1,9 @@
-import { html } from '../../../shared/utils/html.js';
-import { mediaUrl } from '../../../shared/utils/media-url.js';
-import { MAX_TRAILER_MB, TIPOS_VIDEO } from '../../../shared/utils/trailer.js';
-import { CATEGORIAS } from '../../../shared/utils/categorias.js';
-import { formField } from '../../../shared/ui/form-field.js';
-import { ETIQUETA_ESTADO } from '../studio.service.js';
+import { html } from '../../../utils/html.js';
+import { mediaUrl } from '../../../utils/media-url.js';
+import { MAX_TRAILER_MB, TIPOS_VIDEO } from '../../../utils/trailer.js';
+import { CATEGORIAS } from '../../../utils/categorias.js';
+import { formField } from '../../../components/form-field.js';
+import { ETIQUETA_ESTADO } from '../services/studio.service.js';
 
 export const TEXTO_SIN_CUOTA =
   'Sin cuota fija ni suscripción. Solo se cobra una comisión por cada boleto vendido.';

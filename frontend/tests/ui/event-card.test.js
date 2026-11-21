@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { html } from '../../src/shared/utils/html.js';
-import { eventCard } from '../../src/shared/ui/event-card.js';
-import { partesRestantes } from '../../src/shared/ui/countdown.js';
-import { categoryGradient } from '../../src/shared/utils/category-gradient.js';
-import { mediaUrl } from '../../src/shared/utils/media-url.js';
+import { html } from '../../src/utils/html.js';
+import { eventCard } from '../../src/components/event-card.js';
+import { partesRestantes } from '../../src/components/countdown.js';
+import { categoryGradient } from '../../src/utils/category-gradient.js';
+import { mediaUrl } from '../../src/utils/media-url.js';
 
 const base = {
   id: 'abc-123',

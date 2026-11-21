@@ -18,7 +18,14 @@ export default defineConfig(({ mode }) => {
         ignored: ['**/dist/**', '**/tests/**', '**/docs/**', '**/node_modules/**', '**/.git/**'],
       },
       // Transforma por adelantado los módulos de arranque para que la primera carga no espere.
-      warmup: { clientFiles: ['./src/main.js', './src/app/**/*.js', './src/shared/**/*.js'] },
+      warmup: {
+        clientFiles: [
+          './src/main.js',
+          './src/router/**/*.js',
+          './src/state/**/*.js',
+          './src/components/**/*.js',
+        ],
+      },
     },
     plugins: [
       {

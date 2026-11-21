@@ -1,16 +1,16 @@
 import '../studio.css';
-import { backLink } from '../../../shared/ui/back-link.js';
-import { sessionState } from '../../../core/session/session.js';
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { formatDateTime } from '../../../shared/utils/format-date.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { kpiCard, kpiGrid } from '../../../shared/ui/kpi-card.js';
+import { backLink } from '../../../components/back-link.js';
+import { sessionState } from '../../../state/session/session.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { formatDateTime } from '../../../utils/format-date.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { kpiCard, kpiGrid } from '../../../components/kpi-card.js';
 import { crearGraficaVentas, vistaGraficaVentas } from '../components/sales-chart.js';
 import { badgeEstado } from '../components/studio-views.js';
-import { cargarEstadisticasEvento } from '../finanzas.service.js';
-import { cargarEvento, textoDuracion } from '../studio.service.js';
+import { cargarEstadisticasEvento } from '../services/finanzas.service.js';
+import { cargarEvento, textoDuracion } from '../services/studio.service.js';
 
 const migas = html`<nav aria-label="Migas de pan" class="mb-3">
   ${backLink('#/estudio/eventos', 'Mis eventos')}

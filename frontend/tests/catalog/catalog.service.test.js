@@ -8,7 +8,7 @@ import {
   hayFiltros,
   leerFiltros,
   validarRango,
-} from '../../src/features/catalog/catalog.service.js';
+} from '../../src/features/catalog/services/catalog.service.js';
 
 const evento = (extra = {}) => ({
   id: 'e1',

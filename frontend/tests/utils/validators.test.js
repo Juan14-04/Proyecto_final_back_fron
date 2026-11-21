@@ -7,7 +7,7 @@ import {
   validarImagen,
   validarPassword,
   validarRequerido,
-} from '../../src/shared/utils/validators.js';
+} from '../../src/utils/validators.js';
 
 test('validarPassword refleja RN-03 (≥ 8, letra y dígito)', () => {
   assert.ok(validarPassword('Ab1'));

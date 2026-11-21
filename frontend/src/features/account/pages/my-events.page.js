@@ -1,10 +1,10 @@
 import '../account.css';
-import { on } from '../../../core/event-bus.js';
-import { html } from '../../../shared/utils/html.js';
-import { fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { activarFallbackPortadas } from '../../../shared/ui/cover.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { pagination } from '../../../shared/ui/pagination.js';
+import { on } from '../../../state/event-bus.js';
+import { html } from '../../../utils/html.js';
+import { fromHtml, setHtml } from '../../../utils/dom.js';
+import { activarFallbackPortadas } from '../../../components/cover.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { pagination } from '../../../components/pagination.js';
 import { abrirCheckout } from '../../checkout/index.js';
 import { vistaCalendario } from '../components/calendar-view.js';
 import { esqueletoEntradas, ticketCard } from '../components/ticket-card.js';
@@ -22,8 +22,8 @@ import {
   mesInicial,
   moverMes,
   paginarLocal,
-} from '../tickets.service.js';
-import { irAlInicioDe } from '../../../shared/utils/motion.js';
+} from '../services/tickets.service.js';
+import { irAlInicioDe } from '../../../utils/motion.js';
 
 const NOMBRE_PESTANA = {
   proximos: 'Próximos',

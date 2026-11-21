@@ -1,7 +1,7 @@
-import { getUsuario } from '../../../core/session/session.js';
-import { html } from '../../../shared/utils/html.js';
-import { artistCard } from '../../../shared/ui/artist-card.js';
-import { alternarSeguido, puedeUsarSocial, seguidos } from '../social.service.js';
+import { getUsuario } from '../../../state/session/session.js';
+import { html } from '../../../utils/html.js';
+import { artistCard } from '../../../components/artist-card.js';
+import { alternarSeguido, puedeUsarSocial, seguidos } from '../services/social.service.js';
 import { activarToggle } from './toggle-button.js';
 
 /**

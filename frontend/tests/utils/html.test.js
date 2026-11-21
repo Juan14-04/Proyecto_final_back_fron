@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { html, raw, escapeHtml } from '../../src/shared/utils/html.js';
+import { html, raw, escapeHtml } from '../../src/utils/html.js';
 
 test('escapa los valores interpolados', () => {
   const malo = '<img src=x onerror="alert(1)">';

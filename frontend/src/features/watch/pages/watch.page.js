@@ -1,21 +1,21 @@
 import '../watch.css';
-import { on } from '../../../core/event-bus.js';
-import { sessionState } from '../../../core/session/session.js';
-import { html } from '../../../shared/utils/html.js';
-import { fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { activarFallbackPortadas } from '../../../shared/ui/cover.js';
-import { createCountdown } from '../../../shared/ui/countdown.js';
-import { errorState } from '../../../shared/ui/empty-state.js';
+import { on } from '../../../state/event-bus.js';
+import { sessionState } from '../../../state/session/session.js';
+import { html } from '../../../utils/html.js';
+import { fromHtml, setHtml } from '../../../utils/dom.js';
+import { activarFallbackPortadas } from '../../../components/cover.js';
+import { createCountdown } from '../../../components/countdown.js';
+import { errorState } from '../../../components/empty-state.js';
 import { abrirCheckout } from '../../checkout/index.js';
 import { crearPlayer } from '../player/player-adapter.js';
 import { activarChatSimulado } from '../components/simulated-chat.js';
-import { obtenerEventoParaVer, salir } from '../watch.api.js';
+import { obtenerEventoParaVer, salir } from '../services/watch.api.js';
 import {
   REINTENTO_ESPERA_MS,
   decidirVista,
   entrarAlEvento,
   msHastaExpirar,
-} from '../watch.service.js';
+} from '../services/watch.service.js';
 import {
   esqueletoVer,
   vistaDenegado,

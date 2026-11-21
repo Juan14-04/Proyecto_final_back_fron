@@ -4,7 +4,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { ticketCard } from '../../src/features/account/components/ticket-card.js';
 import { vistaCalendario } from '../../src/features/account/components/calendar-view.js';
-import { agruparPorDia } from '../../src/features/account/tickets.service.js';
+import { agruparPorDia } from '../../src/features/account/services/tickets.service.js';
 
 const normal = (s) => String(s).replace(/\s+/g, ' ');
 const compra = (estado, evento = {}, extra = {}) => ({

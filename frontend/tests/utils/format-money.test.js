@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { formatCop } from '../../src/shared/utils/format-money.js';
+import { formatCop } from '../../src/utils/format-money.js';
 
 const normal = (s) => s.replace(/\s/g, ' ');
 

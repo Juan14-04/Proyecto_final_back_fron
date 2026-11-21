@@ -1,10 +1,10 @@
 import '../checkout.css';
-import { emit, on } from '../../../core/event-bus.js';
-import { isAuthenticated } from '../../../core/session/session.js';
-import { setHtml } from '../../../shared/utils/dom.js';
-import { openModal } from '../../../shared/ui/modal.js';
-import { simularPago } from '../checkout.api.js';
-import { RESULTADO_POR_ACCION, iniciarCompra, sondearCompra } from '../checkout.service.js';
+import { emit, on } from '../../../state/event-bus.js';
+import { isAuthenticated } from '../../../state/session/session.js';
+import { setHtml } from '../../../utils/dom.js';
+import { openModal } from '../../../components/modal.js';
+import { simularPago } from '../services/checkout.api.js';
+import { RESULTADO_POR_ACCION, iniciarCompra, sondearCompra } from '../services/checkout.service.js';
 import {
   vistaError,
   vistaMetodo,

@@ -1,16 +1,16 @@
 import '../studio.css';
-import { sessionState } from '../../../core/session/session.js';
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { activarFallbackPortadas } from '../../../shared/ui/cover.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { kpiCard, kpiGrid } from '../../../shared/ui/kpi-card.js';
+import { sessionState } from '../../../state/session/session.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { activarFallbackPortadas } from '../../../components/cover.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { kpiCard, kpiGrid } from '../../../components/kpi-card.js';
 import { tarjetasSaldo } from '../components/saldo-cards.js';
 import { crearGraficaVentas, vistaGraficaVentas } from '../components/sales-chart.js';
 import { esqueletoLista, filaEvento } from '../components/studio-views.js';
-import { cargarEstadisticas, textoPico } from '../finanzas.service.js';
-import { listarEventos } from '../studio.service.js';
+import { cargarEstadisticas, textoPico } from '../services/finanzas.service.js';
+import { listarEventos } from '../services/studio.service.js';
 
 function seccionEventos(titulo, eventos) {
   if (!eventos.length) return html``;

@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { enlaceDeConfig } from '../../src/core/config.js';
+import { enlaceDeConfig } from '../../src/config.js';
 import { construirCsp } from '../../csp.config.js';
 
 /** Auditoría de seguridad y reglas (§7, §12): estas pruebas fallan si alguien reintroduce una infracción. */
@@ -28,23 +28,21 @@ const donde = (patron, { excepto = [] } = {}) =>
 
 test('innerHTML solo en los 3 puntos controlados (plantillas fijas o SafeHtml)', () => {
   assert.deepEqual(donde(/innerHTML|insertAdjacentHTML|outerHTML/).sort(), [
-    'src/shared/ui/modal.js',
-    'src/shared/ui/toast.js',
-    'src/shared/utils/dom.js',
+    'src/components/modal.js',
+    'src/components/toast.js',
+    'src/utils/dom.js',
   ]);
   // dom.js solo acepta SafeHtml (rechaza cadenas sueltas)
-  const dom = readFileSync('src/shared/utils/dom.js', 'utf8');
+  const dom = readFileSync('src/utils/dom.js', 'utf8');
   assert.match(dom, /instanceof SafeHtml/);
   assert.match(dom, /throw new TypeError/);
   // toast y modal escapan todo lo que interpolan de fuera
-  assert.match(readFileSync('src/shared/ui/toast.js', 'utf8'), /escapeHtml\(mensaje\)/);
-  assert.match(readFileSync('src/shared/ui/modal.js', 'utf8'), /escapeHtml\(titulo\)/);
+  assert.match(readFileSync('src/components/toast.js', 'utf8'), /escapeHtml\(mensaje\)/);
+  assert.match(readFileSync('src/components/modal.js', 'utf8'), /escapeHtml\(titulo\)/);
 });
 
 test('el contenido de plantillas `html` nunca se marca como confiable con raw() con datos', () => {
-  const usos = fuentes.filter(
-    (f) => f.ruta !== 'src/shared/utils/html.js' && /\braw\(/.test(f.texto),
-  );
+  const usos = fuentes.filter((f) => f.ruta !== 'src/utils/html.js' && /\braw\(/.test(f.texto));
   assert.deepEqual(
     usos.map((f) => f.ruta),
     [],
@@ -58,17 +56,17 @@ test('sin eval, new Function, document.write ni temporizadores con cadenas', () 
   );
 });
 
-test('fetch, XMLHttpRequest y sendBeacon solo en core/http/api-client.js', () => {
+test('fetch, XMLHttpRequest y sendBeacon solo en services/http/api-client.js', () => {
   assert.deepEqual(
-    donde(/\bfetch\(|XMLHttpRequest|sendBeacon/, { excepto: ['src/core/http/api-client.js'] }),
+    donde(/\bfetch\(|XMLHttpRequest|sendBeacon/, { excepto: ['src/services/http/api-client.js'] }),
     [],
   );
 });
 
 test('solo el refresh token toca sessionStorage; nada usa localStorage, cookies ni IndexedDB', () => {
   assert.deepEqual(donde(/localStorage|indexedDB|document\.cookie/), []);
-  assert.deepEqual(donde(/sessionStorage/), ['src/core/session/session-store.js']);
-  const almacen = readFileSync('src/core/session/session-store.js', 'utf8');
+  assert.deepEqual(donde(/sessionStorage/), ['src/state/session/session-store.js']);
+  const almacen = readFileSync('src/state/session/session-store.js', 'utf8');
   assert.equal([...almacen.matchAll(/(set|get|remove)Item\(/g)].length, 3);
   assert.equal(
     [...almacen.matchAll(/(set|get|remove)Item\(([A-Z_]+)/g)].every(
@@ -85,31 +83,39 @@ test('ni contraseñas, tokens ni stream_key llegan a la consola', () => {
   // única excepción: el router, en desarrollo, registra el error de render (no datos de la sesión)
   assert.deepEqual(
     consolas.map((f) => f.ruta),
-    ['src/app/router.js'],
+    ['src/router/router.js'],
   );
-  const router = readFileSync('src/app/router.js', 'utf8');
+  const router = readFileSync('src/router/router.js', 'utf8');
   assert.match(router, /if \(config\.isDev\) console\.error\(error\)/);
   assert.ok(!/console\.(log|info|debug|warn)/.test(router));
 });
 
-test('capas: shared y core no importan de features ni de app; features no importan de app', () => {
+// Capas (de abajo hacia arriba): base (state, services, config) → compartido (components, utils)
+// → features → router. Una capa nunca importa de una superior.
+const CAPA = {
+  state: 0,
+  services: 0,
+  'config.js': 0,
+  utils: 1,
+  components: 1,
+  features: 2,
+  router: 3,
+  'main.js': 4,
+};
+
+test('capas: base no importa de nada superior; compartido no importa features ni router; features no importa router', () => {
   const infracciones = [];
   for (const { ruta, texto } of fuentes) {
-    const capa = ruta.split('/')[1];
+    const capa = CAPA[ruta.split('/')[1]];
     for (const m of texto.matchAll(/from '((?:\.\.?\/)+)([^']+)'/g)) {
       const destino = join(ruta.split('/').slice(0, -1).join('/'), m[1] + m[2]).replaceAll(
         '\\',
         '/',
       );
-      const objetivo = destino.split('/')[1];
-      if (
-        (capa === 'shared' || capa === 'core') &&
-        (objetivo === 'features' || objetivo === 'app')
-      ) {
+      const objetivo = CAPA[destino.split('/')[1]];
+      if (capa !== undefined && objetivo !== undefined && objetivo > capa) {
         infracciones.push(`${ruta} → ${destino}`);
       }
-      if (capa === 'core' && objetivo === 'shared') infracciones.push(`${ruta} → ${destino}`);
-      if (capa === 'features' && objetivo === 'app') infracciones.push(`${ruta} → ${destino}`);
     }
   }
   assert.deepEqual(infracciones, []);
@@ -162,10 +168,10 @@ test('toda URL externa se valida y los enlaces target="_blank" llevan rel="noope
   }
   // portadas y fotos: solo https (o http://localhost) o rutas del propio backend
   assert.match(
-    readFileSync('src/shared/ui/cover.js', 'utf8'),
+    readFileSync('src/components/cover.js', 'utf8'),
     /esUrlExternaSegura\(evento\.portada_url\)/,
   );
-  assert.match(readFileSync('src/shared/utils/media-url.js', 'utf8'), /esUrlExternaSegura/);
+  assert.match(readFileSync('src/utils/media-url.js', 'utf8'), /esUrlExternaSegura/);
   // el hash de política viene del entorno y se valida
   assert.equal(enlaceDeConfig('javascript:alert(1)', '#/politica-datos'), '#/politica-datos');
   assert.equal(enlaceDeConfig('data:text/html,x', '#/politica-datos'), '#/politica-datos');
@@ -191,7 +197,7 @@ test('las redirecciones internas empiezan por #/ y la de login se valida', () =>
     assert.ok(!/window\.open\(/.test(texto), `${ruta} usa window.open`);
   }
   assert.match(
-    readFileSync('src/features/auth/auth.service.js', 'utf8'),
+    readFileSync('src/features/auth/services/auth.service.js', 'utf8'),
     /esRedirectSeguro\(redirect\)/,
   );
 });
@@ -223,7 +229,7 @@ test('ningún texto menciona planes, suscripciones ni "cuenta en revisión" (C1/
     readFileSync('src/features/studio/components/event-form-view.js', 'utf8'),
     /Sin cuota fija ni suscripción/,
   );
-  assert.match(readFileSync('src/shared/ui/footer.js', 'utf8'), /Sin cuota fija/);
+  assert.match(readFileSync('src/components/footer.js', 'utf8'), /Sin cuota fija/);
 });
 
 test('sin TODO(Fase …) pendientes ni mocks (VITE_USE_MOCKS)', () => {

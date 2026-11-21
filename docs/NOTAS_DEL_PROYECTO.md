@@ -127,10 +127,13 @@ JavaScript, Vite y Bootstrap. No utiliza un framework de componentes.
 | --- | --- |
 | `index.html` | Contenedor HTML inicial de la aplicación. |
 | `src/main.js` | Carga estilos, restaura la sesión y arranca el router. |
-| `src/app/` | Tabla de rutas, navegación, guards de rol y layouts público, artista y administrador. |
-| `src/core/` | Configuración, estado de sesión, cliente HTTP, manejo de errores y bus de eventos. |
-| `src/features/` | Pantallas y lógica agrupadas por funcionalidad. |
-| `src/shared/` | Componentes visuales, estilos y utilidades reutilizadas por varias funcionalidades. |
+| `src/config.js` | Lee las variables `VITE_*` y valida las URLs de configuración. |
+| `src/router/` | Enrutamiento: tabla de rutas, navegación, guards de rol y layouts. |
+| `src/state/` | Gestión de estado: store, sesión y bus de eventos. |
+| `src/services/` | Comunicación con la API REST: cliente HTTP y manejo de errores. |
+| `src/components/` | Componentes visuales reutilizados por varias funcionalidades. |
+| `src/utils/` · `src/styles/` | Utilidades y estilos globales. |
+| `src/features/` | Por funcionalidad: `pages/` (páginas), `components/` y `services/`. |
 | `docs/openapi.json` | Copia del contrato OpenAPI generado por el backend. |
 | `docs/trazabilidad.md` | Relación entre requisitos, pruebas y flujos que se deben verificar. |
 | `tests/` | Pruebas automatizadas de servicios, vistas, utilidades y reglas de arquitectura. |
@@ -150,16 +153,16 @@ JavaScript, Vite y Bootstrap. No utiliza un framework de componentes.
 | `admin/` | Dashboard, gestión de usuarios/eventos, consulta de compras, retiros y configuración. |
 
 Las pantallas llaman servicios de su propia feature; esos servicios usan el cliente API definido en
-`core/http/api-client.js`. `shared/` contiene elementos visuales comunes, así que las features no
+`services/http/api-client.js`. `components/` contiene elementos visuales comunes, así que las features no
 necesitan duplicar botones, tarjetas, modales ni formatos.
 
 ### Sesión y comunicación
 
 El access token se conserva en memoria y se envía en el encabezado `Authorization: Bearer ...`.
 El refresh token se conserva en `sessionStorage` y el cliente HTTP lo usa para renovar la sesión
-cuando corresponde. Los guards de `app/routes.js` protegen las rutas de artista y administrador.
+cuando corresponde. Los guards de `router/routes.js` protegen las rutas de artista y administrador.
 
-El bus de eventos de `core/event-bus.js` permite que una funcionalidad avise a otra de cambios, por
+El bus de eventos de `state/event-bus.js` permite que una funcionalidad avise a otra de cambios, por
 ejemplo que una compra aprobada refresque una pantalla relacionada, sin importar archivos internos
 de otra feature.
 
@@ -380,22 +383,22 @@ corresponde.
 | Archivo | Responsabilidad |
 | --- | --- |
 | `src/main.js` | Carga estilos globales, restaura sesión e inicia el router. |
-| `src/app/routes.js` | Mapea hashes/rutas a páginas y define guards/layouts por rol. |
-| `src/app/router.js` | Controla navegación, carga diferida de páginas, errores y foco. |
-| `src/app/route-match.js` | Encuentra la definición de ruta que coincide con la URL actual. |
-| `src/app/guards.js` | Permite o redirige navegación según sesión y roles. |
-| `src/app/layouts/public.layout.js` | Monta navegación y estructura de páginas públicas. |
-| `src/app/layouts/studio.layout.js` | Monta la navegación y estructura del panel de artista. |
-| `src/app/layouts/admin.layout.js` | Monta la navegación y estructura del panel de administración. |
-| `src/app/layouts/panel-nav.js` | Construye la navegación compartida de los paneles. |
-| `src/app/pages/system.pages.js` | Renderiza páginas del sistema, acceso denegado y rutas inexistentes. |
-| `src/core/config.js` | Lee variables Vite y valida URLs de configuración externa. |
-| `src/core/store.js` | Implementa el estado reactivo pequeño usado por la aplicación. |
-| `src/core/event-bus.js` | Permite publicar y escuchar eventos entre funcionalidades desacopladas. |
-| `src/core/http/api-client.js` | Hace peticiones HTTP, añade JWT, serializa parámetros y renueva sesión. |
-| `src/core/http/api-error.js` | Normaliza errores de API a un formato que las vistas pueden mostrar. |
-| `src/core/session/session-store.js` | Mantiene access token en memoria y refresh token en `sessionStorage`. |
-| `src/core/session/session.js` | Inicia, restaura, actualiza y cierra sesiones del usuario. |
+| `src/router/routes.js` | Mapea hashes/rutas a páginas y define guards/layouts por rol. |
+| `src/router/router.js` | Controla navegación, carga diferida de páginas, errores y foco. |
+| `src/router/route-match.js` | Encuentra la definición de ruta que coincide con la URL actual. |
+| `src/router/guards.js` | Permite o redirige navegación según sesión y roles. |
+| `src/router/layouts/public.layout.js` | Monta navegación y estructura de páginas públicas. |
+| `src/router/layouts/studio.layout.js` | Monta la navegación y estructura del panel de artista. |
+| `src/router/layouts/admin.layout.js` | Monta la navegación y estructura del panel de administración. |
+| `src/router/layouts/panel-nav.js` | Construye la navegación compartida de los paneles. |
+| `src/router/pages/system.pages.js` | Renderiza páginas del sistema, acceso denegado y rutas inexistentes. |
+| `src/config.js` | Lee variables Vite y valida URLs de configuración externa. |
+| `src/state/store.js` | Implementa el estado reactivo pequeño usado por la aplicación. |
+| `src/state/event-bus.js` | Permite publicar y escuchar eventos entre funcionalidades desacopladas. |
+| `src/services/http/api-client.js` | Hace peticiones HTTP, añade JWT, serializa parámetros y renueva sesión. |
+| `src/services/http/api-error.js` | Normaliza errores de API a un formato que las vistas pueden mostrar. |
+| `src/state/session/session-store.js` | Mantiene access token en memoria y refresh token en `sessionStorage`. |
+| `src/state/session/session.js` | Inicia, restaura, actualiza y cierra sesiones del usuario. |
 
 ### Frontend: funcionalidades por archivo
 
@@ -404,8 +407,8 @@ corresponde.
 | Archivo | Responsabilidad |
 | --- | --- |
 | `src/features/auth/index.js` | Exporta las páginas públicas de autenticación. |
-| `src/features/auth/auth.api.js` | Llama endpoints de registro, login y refresh. |
-| `src/features/auth/auth.service.js` | Coordina validación, registro, login y estado local de sesión. |
+| `src/features/auth/services/auth.api.js` | Llama endpoints de registro, login y refresh. |
+| `src/features/auth/services/auth.service.js` | Coordina validación, registro, login y estado local de sesión. |
 | `src/features/auth/pages/login.page.js` | Renderiza y controla el formulario de ingreso. |
 | `src/features/auth/pages/register.page.js` | Renderiza y controla el formulario de registro. |
 | `src/features/auth/components/form-feedback.js` | Muestra errores y ayudas de validación de formularios. |
@@ -415,9 +418,9 @@ corresponde.
 | Archivo | Responsabilidad |
 | --- | --- |
 | `src/features/catalog/index.js` | Exporta páginas del inicio, eventos y artistas. |
-| `src/features/catalog/catalog.api.js` | Llama endpoints públicos de eventos y artistas. |
-| `src/features/catalog/catalog.service.js` | Normaliza filtros y coordina consultas de catálogo. |
-| `src/features/catalog/social.service.js` | Coordina favorito/seguimiento desde las pantallas de catálogo. |
+| `src/features/catalog/services/catalog.api.js` | Llama endpoints públicos de eventos y artistas. |
+| `src/features/catalog/services/catalog.service.js` | Normaliza filtros y coordina consultas de catálogo. |
+| `src/features/catalog/services/social.service.js` | Coordina favorito/seguimiento desde las pantallas de catálogo. |
 | `src/features/catalog/pages/home.page.js` | Presenta portada, recomendaciones y secciones destacadas. |
 | `src/features/catalog/pages/events.page.js` | Muestra y filtra el catálogo de eventos. |
 | `src/features/catalog/pages/event-detail.page.js` | Presenta el detalle y tráiler promocional del evento. |
@@ -433,8 +436,8 @@ corresponde.
 | Archivo | Responsabilidad |
 | --- | --- |
 | `src/features/checkout/index.js` | Exporta los componentes y servicios del checkout. |
-| `src/features/checkout/checkout.api.js` | Llama endpoints para crear y consultar compras/pagos. |
-| `src/features/checkout/checkout.service.js` | Coordina compra, pago simulado y consulta de estado. |
+| `src/features/checkout/services/checkout.api.js` | Llama endpoints para crear y consultar compras/pagos. |
+| `src/features/checkout/services/checkout.service.js` | Coordina compra, pago simulado y consulta de estado. |
 | `src/features/checkout/components/checkout-modal.js` | Abre y administra el flujo modal de compra. |
 | `src/features/checkout/components/checkout-views.js` | Renderiza los estados del checkout y sus mensajes. |
 | `src/features/checkout/checkout.css` | Estilos del checkout y sus estados. |
@@ -444,9 +447,9 @@ corresponde.
 | Archivo | Responsabilidad |
 | --- | --- |
 | `src/features/account/index.js` | Exporta las páginas de perfil, entradas y listas sociales. |
-| `src/features/account/account.api.js` | Llama endpoints de perfil, favoritos y seguidos. |
-| `src/features/account/account.service.js` | Coordina operaciones y validaciones de la cuenta. |
-| `src/features/account/tickets.service.js` | Prepara la información y acciones de entradas compradas. |
+| `src/features/account/services/account.api.js` | Llama endpoints de perfil, favoritos y seguidos. |
+| `src/features/account/services/account.service.js` | Coordina operaciones y validaciones de la cuenta. |
+| `src/features/account/services/tickets.service.js` | Prepara la información y acciones de entradas compradas. |
 | `src/features/account/pages/profile.page.js` | Muestra y actualiza datos del perfil. |
 | `src/features/account/pages/my-events.page.js` | Muestra entradas y eventos vinculados a la cuenta. |
 | `src/features/account/pages/favorites.page.js` | Presenta la lista de eventos favoritos. |
@@ -461,9 +464,9 @@ corresponde.
 | Archivo | Responsabilidad |
 | --- | --- |
 | `src/features/studio/index.js` | Exporta las pantallas del estudio del artista. |
-| `src/features/studio/studio.api.js` | Llama endpoints de eventos, estadísticas, streaming y finanzas. |
-| `src/features/studio/studio.service.js` | Coordina operaciones de eventos y panel del artista. |
-| `src/features/studio/finanzas.service.js` | Prepara y valida saldos, retiros e historial financiero. |
+| `src/features/studio/services/studio.api.js` | Llama endpoints de eventos, estadísticas, streaming y finanzas. |
+| `src/features/studio/services/studio.service.js` | Coordina operaciones de eventos y panel del artista. |
+| `src/features/studio/services/finanzas.service.js` | Prepara y valida saldos, retiros e historial financiero. |
 | `src/features/studio/pages/studio-home.page.js` | Presenta el inicio del estudio. |
 | `src/features/studio/pages/my-events.page.js` | Lista eventos propios y acciones posibles. |
 | `src/features/studio/pages/event-form.page.js` | Controla el formulario de crear/editar eventos. |
@@ -482,8 +485,8 @@ corresponde.
 | Archivo | Responsabilidad |
 | --- | --- |
 | `src/features/watch/index.js` | Exporta la página de reproducción. |
-| `src/features/watch/watch.api.js` | Llama endpoints de reproducción/transmisión. |
-| `src/features/watch/watch.service.js` | Coordina comprobaciones de acceso y estado de reproducción. |
+| `src/features/watch/services/watch.api.js` | Llama endpoints de reproducción/transmisión. |
+| `src/features/watch/services/watch.service.js` | Coordina comprobaciones de acceso y estado de reproducción. |
 | `src/features/watch/pages/watch.page.js` | Une reproductor, estado del evento y chat en una pantalla. |
 | `src/features/watch/components/watch-views.js` | Renderiza los estados y controles visuales del reproductor. |
 | `src/features/watch/components/simulated-chat.js` | Muestra mensajes simulados claramente identificados como demo. |
@@ -497,8 +500,8 @@ corresponde.
 | Archivo | Responsabilidad |
 | --- | --- |
 | `src/features/admin/index.js` | Exporta las páginas del panel admin. |
-| `src/features/admin/admin.api.js` | Agrupa peticiones HTTP para las funciones administrativas disponibles. |
-| `src/features/admin/admin.service.js` | Maneja filtros, parámetros, validaciones y mensajes del panel admin. |
+| `src/features/admin/services/admin.api.js` | Agrupa peticiones HTTP para las funciones administrativas disponibles. |
+| `src/features/admin/services/admin.service.js` | Maneja filtros, parámetros, validaciones y mensajes del panel admin. |
 | `src/features/admin/components/admin-list.js` | Crea listas con filtros, tablas, paginación y estados de carga/error. |
 | `src/features/admin/components/admin-ui.js` | Renderiza insignias y elementos visuales administrativos. |
 | `src/features/admin/components/dialogs.js` | Comparte diálogos de confirmación/motivos administrativos. |
@@ -515,49 +518,49 @@ corresponde.
 
 | Archivo | Responsabilidad |
 | --- | --- |
-| `src/shared/ui/artist-card.js` | Tarjeta reutilizable de artista. |
-| `src/shared/ui/avatar.js` | Presenta avatar/foto y alternativa si no hay imagen. |
-| `src/shared/ui/bar-chart.js` | Renderiza gráficas de barras reutilizables. |
-| `src/shared/ui/category-chips.js` | Muestra filtros/enlaces rápidos de categorías. |
-| `src/shared/ui/confirm-dialog.js` | Diálogo accesible de confirmación. |
-| `src/shared/ui/countdown.js` | Cuenta regresiva hacia la fecha del evento. |
-| `src/shared/ui/cover.js` | Renderiza portada de contenido. |
-| `src/shared/ui/empty-state.js` | Presenta estados vacíos y de error. |
-| `src/shared/ui/event-card.js` | Tarjeta de evento reutilizada en catálogo y listas. |
-| `src/shared/ui/footer.js` | Pie común de la aplicación. |
-| `src/shared/ui/form-field.js` | Estructura común de campos de formulario. |
-| `src/shared/ui/hero.js` | Sección principal destacada de una página. |
-| `src/shared/ui/kpi-card.js` | Tarjeta para indicador o métrica. |
-| `src/shared/ui/live-badge.js` | Insignia de evento en vivo. |
-| `src/shared/ui/modal.js` | Infraestructura común para modales accesibles. |
-| `src/shared/ui/navbar-links.js` | Define enlaces visibles según el rol. |
-| `src/shared/ui/navbar.js` | Renderiza la barra principal de navegación. |
-| `src/shared/ui/pagination.js` | Controles de cambio de página. |
-| `src/shared/ui/rail.js` | Carrusel/riel horizontal de elementos. |
-| `src/shared/ui/skeleton.js` | Placeholders de carga. |
-| `src/shared/ui/spinner.js` | Indicador giratorio de carga. |
-| `src/shared/ui/toast.js` | Notificaciones temporales. |
-| `src/shared/utils/categorias.js` | Nombres y mapeos de categorías. |
-| `src/shared/utils/category-gradient.js` | Selecciona gradientes visuales por categoría. |
-| `src/shared/utils/debounce.js` | Retrasa una operación hasta que cesa la entrada repetida. |
-| `src/shared/utils/dom.js` | Inserta nodos HTML seguros y realiza operaciones DOM comunes. |
-| `src/shared/utils/format-date.js` | Formatea fechas y horas en la zona horaria del producto. |
-| `src/shared/utils/format-money.js` | Formatea importes en pesos colombianos. |
-| `src/shared/utils/html.js` | Crea plantillas HTML seguras escapando texto por defecto. |
-| `src/shared/utils/media-url.js` | Resuelve URLs de imágenes y medios. |
-| `src/shared/utils/motion.js` | Centraliza desplazamientos y respeta movimiento reducido. |
-| `src/shared/utils/query-string.js` | Convierte parámetros de URL en filtros y viceversa. |
-| `src/shared/utils/validators.js` | Validaciones compartidas de formularios. |
-| `src/shared/utils/youtube-url.js` | Valida/normaliza enlaces de videos de YouTube. |
+| `src/components/artist-card.js` | Tarjeta reutilizable de artista. |
+| `src/components/avatar.js` | Presenta avatar/foto y alternativa si no hay imagen. |
+| `src/components/bar-chart.js` | Renderiza gráficas de barras reutilizables. |
+| `src/components/category-chips.js` | Muestra filtros/enlaces rápidos de categorías. |
+| `src/components/confirm-dialog.js` | Diálogo accesible de confirmación. |
+| `src/components/countdown.js` | Cuenta regresiva hacia la fecha del evento. |
+| `src/components/cover.js` | Renderiza portada de contenido. |
+| `src/components/empty-state.js` | Presenta estados vacíos y de error. |
+| `src/components/event-card.js` | Tarjeta de evento reutilizada en catálogo y listas. |
+| `src/components/footer.js` | Pie común de la aplicación. |
+| `src/components/form-field.js` | Estructura común de campos de formulario. |
+| `src/components/hero.js` | Sección principal destacada de una página. |
+| `src/components/kpi-card.js` | Tarjeta para indicador o métrica. |
+| `src/components/live-badge.js` | Insignia de evento en vivo. |
+| `src/components/modal.js` | Infraestructura común para modales accesibles. |
+| `src/components/navbar-links.js` | Define enlaces visibles según el rol. |
+| `src/components/navbar.js` | Renderiza la barra principal de navegación. |
+| `src/components/pagination.js` | Controles de cambio de página. |
+| `src/components/rail.js` | Carrusel/riel horizontal de elementos. |
+| `src/components/skeleton.js` | Placeholders de carga. |
+| `src/components/spinner.js` | Indicador giratorio de carga. |
+| `src/components/toast.js` | Notificaciones temporales. |
+| `src/utils/categorias.js` | Nombres y mapeos de categorías. |
+| `src/utils/category-gradient.js` | Selecciona gradientes visuales por categoría. |
+| `src/utils/debounce.js` | Retrasa una operación hasta que cesa la entrada repetida. |
+| `src/utils/dom.js` | Inserta nodos HTML seguros y realiza operaciones DOM comunes. |
+| `src/utils/format-date.js` | Formatea fechas y horas en la zona horaria del producto. |
+| `src/utils/format-money.js` | Formatea importes en pesos colombianos. |
+| `src/utils/html.js` | Crea plantillas HTML seguras escapando texto por defecto. |
+| `src/utils/media-url.js` | Resuelve URLs de imágenes y medios. |
+| `src/utils/motion.js` | Centraliza desplazamientos y respeta movimiento reducido. |
+| `src/utils/query-string.js` | Convierte parámetros de URL en filtros y viceversa. |
+| `src/utils/validators.js` | Validaciones compartidas de formularios. |
+| `src/utils/youtube-url.js` | Valida/normaliza enlaces de videos de YouTube. |
 
 #### Estilos globales
 
 | Archivo | Responsabilidad |
 | --- | --- |
-| `src/shared/styles/tokens.css` | Colores, tipografía, radios, espaciado y otros tokens del diseño. |
-| `src/shared/styles/base.css` | Estilos base para documento, foco, tipografía y estructura. |
-| `src/shared/styles/bootstrap-overrides.css` | Ajusta Bootstrap para el tema y componentes del proyecto. |
-| `src/shared/styles/components.css` | Estilos visuales compartidos por componentes y páginas. |
+| `src/styles/tokens.css` | Colores, tipografía, radios, espaciado y otros tokens del diseño. |
+| `src/styles/base.css` | Estilos base para documento, foco, tipografía y estructura. |
+| `src/styles/bootstrap-overrides.css` | Ajusta Bootstrap para el tema y componentes del proyecto. |
+| `src/styles/components.css` | Estilos visuales compartidos por componentes y páginas. |
 
 ### Frontend: pruebas
 

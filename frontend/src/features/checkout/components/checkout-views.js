@@ -1,7 +1,7 @@
-import { html } from '../../../shared/utils/html.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { formatTime } from '../../../shared/utils/format-date.js';
-import { METODOS, accionTrasCompra, etiquetaMetodo } from '../checkout.service.js';
+import { html } from '../../../utils/html.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { formatTime } from '../../../utils/format-date.js';
+import { METODOS, accionTrasCompra, etiquetaMetodo } from '../services/checkout.service.js';
 
 /** Encabezado de cada vista: recibe el foco al cambiar de paso (`data-foco`). */
 const titulo = (texto) => html`<h3 class="fs-5 mb-3" tabindex="-1" data-foco>${texto}</h3>`;

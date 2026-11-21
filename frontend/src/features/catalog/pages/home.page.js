@@ -1,17 +1,17 @@
-import { config } from '../../../core/config.js';
-import { sessionState } from '../../../core/session/session.js';
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { activarFallbackPortadas } from '../../../shared/ui/cover.js';
-import { categoryChips } from '../../../shared/ui/category-chips.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { eventCardSkeleton } from '../../../shared/ui/event-card.js';
-import { hero } from '../../../shared/ui/hero.js';
-import { activarRails, rail } from '../../../shared/ui/rail.js';
-import { showToast } from '../../../shared/ui/toast.js';
+import { config } from '../../../config.js';
+import { sessionState } from '../../../state/session/session.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { activarFallbackPortadas } from '../../../components/cover.js';
+import { categoryChips } from '../../../components/category-chips.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { eventCardSkeleton } from '../../../components/event-card.js';
+import { hero } from '../../../components/hero.js';
+import { activarRails, rail } from '../../../components/rail.js';
+import { showToast } from '../../../components/toast.js';
 import { activarFavoritos, eventCardConFavorito } from '../components/favorite-button.js';
-import { cargarInicio, elegirHero } from '../catalog.service.js';
-import { precargarSocial } from '../social.service.js';
+import { cargarInicio, elegirHero } from '../services/catalog.service.js';
+import { precargarSocial } from '../services/social.service.js';
 
 function heroBienvenida(usuario) {
   return html`<section class="hero-welcome">

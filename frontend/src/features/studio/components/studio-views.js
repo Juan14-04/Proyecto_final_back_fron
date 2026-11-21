@@ -1,9 +1,9 @@
-import { html } from '../../../shared/utils/html.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { formatDateTime } from '../../../shared/utils/format-date.js';
-import { coverMedia } from '../../../shared/ui/cover.js';
-import { liveBadge } from '../../../shared/ui/live-badge.js';
-import { ETIQUETA_ESTADO, accionesDeEvento } from '../studio.service.js';
+import { html } from '../../../utils/html.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { formatDateTime } from '../../../utils/format-date.js';
+import { coverMedia } from '../../../components/cover.js';
+import { liveBadge } from '../../../components/live-badge.js';
+import { ETIQUETA_ESTADO, accionesDeEvento } from '../services/studio.service.js';
 
 /** Insignia de estado con texto (el color no es la única señal). */
 export function badgeEstado(estado) {

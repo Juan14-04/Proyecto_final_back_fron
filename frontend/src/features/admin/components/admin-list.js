@@ -1,12 +1,12 @@
 import '../admin.css';
-import { html } from '../../../shared/utils/html.js';
-import { debounce } from '../../../shared/utils/debounce.js';
-import { fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { pagination } from '../../../shared/ui/pagination.js';
-import { showToast } from '../../../shared/ui/toast.js';
-import { textoDeAviso } from '../admin.service.js';
-import { irAlInicioDe } from '../../../shared/utils/motion.js';
+import { html } from '../../../utils/html.js';
+import { debounce } from '../../../utils/debounce.js';
+import { fromHtml, setHtml } from '../../../utils/dom.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { pagination } from '../../../components/pagination.js';
+import { showToast } from '../../../components/toast.js';
+import { textoDeAviso } from '../services/admin.service.js';
+import { irAlInicioDe } from '../../../utils/motion.js';
 
 /** Filas de esqueleto para la carga de una tabla. */
 function esqueletoTabla(columnas, claseTabla = '') {
@@ -36,16 +36,16 @@ const hayFiltrosActivos = (filtros) =>
  *   titulo: string,
  *   descripcion?: string,
  *   ruta: string,
- *   cabeceraExtra?: import('../../../shared/utils/html.js').SafeHtml,
+ *   cabeceraExtra?: import('../../../utils/html.js').SafeHtml,
  *   leerFiltros: (query: URLSearchParams) => Record<string, any>,
  *   aQuery: (filtros: Record<string, any>) => string,
- *   formularioFiltros: (filtros: Record<string, any>) => import('../../../shared/utils/html.js').SafeHtml,
+ *   formularioFiltros: (filtros: Record<string, any>) => import('../../../utils/html.js').SafeHtml,
  *   leerFormulario: (form: HTMLFormElement) => Record<string, any>,
  *   validar?: (filtros: Record<string, any>) => string|null,
  *   cargar: (filtros: Record<string, any>, signal: AbortSignal) => Promise<{items: any[], page: number, page_size: number, total: number}>,
  *   claseTabla?: string,
  *   columnas: string[],
- *   fila: (item: any) => import('../../../shared/utils/html.js').SafeHtml,
+ *   fila: (item: any) => import('../../../utils/html.js').SafeHtml,
  *   vacio: (filtros: Record<string, any>) => Parameters<typeof emptyState>[0],
  *   acciones?: Record<string, (c: object) => unknown>,
  *   alIniciar?: (c: object) => (() => void) | void,

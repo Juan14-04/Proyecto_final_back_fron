@@ -1,8 +1,8 @@
-import { sessionState } from '../../../core/session/session.js';
-import { html } from '../../../shared/utils/html.js';
-import { formatDateMedium } from '../../../shared/utils/format-date.js';
-import { nombreCompleto } from '../../../shared/utils/nombre-completo.js';
-import { confirmDialog } from '../../../shared/ui/confirm-dialog.js';
+import { sessionState } from '../../../state/session/session.js';
+import { html } from '../../../utils/html.js';
+import { formatDateMedium } from '../../../utils/format-date.js';
+import { nombreCompleto } from '../../../utils/nombre-completo.js';
+import { confirmDialog } from '../../../components/confirm-dialog.js';
 import {
   ESTADOS_USUARIO,
   ETIQUETA_ROL,
@@ -11,7 +11,7 @@ import {
   cargarUsuarios,
   filtrosAQuery,
   leerFiltrosUsuarios,
-} from '../admin.service.js';
+} from '../services/admin.service.js';
 import { crearPaginaLista } from '../components/admin-list.js';
 import { badgeEstadoUsuario, badgeRol } from '../components/admin-ui.js';
 import { verDetalles } from '../components/dialogs.js';

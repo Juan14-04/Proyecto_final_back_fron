@@ -1,14 +1,14 @@
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { debounce } from '../../../shared/utils/debounce.js';
-import { activarFallbackAvatares } from '../../../shared/ui/avatar.js';
-import { artistCardSkeleton } from '../../../shared/ui/artist-card.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { pagination } from '../../../shared/ui/pagination.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { debounce } from '../../../utils/debounce.js';
+import { activarFallbackAvatares } from '../../../components/avatar.js';
+import { artistCardSkeleton } from '../../../components/artist-card.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { pagination } from '../../../components/pagination.js';
 import { activarSeguir, artistCardConSeguir } from '../components/follow-button.js';
-import { precargarSocial } from '../social.service.js';
-import { artistasAQuery, buscarArtistas, leerFiltrosArtistas } from '../catalog.service.js';
-import { irAlInicioDe } from '../../../shared/utils/motion.js';
+import { precargarSocial } from '../services/social.service.js';
+import { artistasAQuery, buscarArtistas, leerFiltrosArtistas } from '../services/catalog.service.js';
+import { irAlInicioDe } from '../../../utils/motion.js';
 
 /** Directorio de artistas con búsqueda por nombre (debounce 300 ms) y paginación. */
 export async function artistsPage(ctx) {

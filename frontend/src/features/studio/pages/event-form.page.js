@@ -1,13 +1,13 @@
 import '../studio.css';
-import { backLink } from '../../../shared/ui/back-link.js';
-import { sessionState } from '../../../core/session/session.js';
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { confirmDialog } from '../../../shared/ui/confirm-dialog.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { clearFieldErrors, setFieldError } from '../../../shared/ui/form-field.js';
-import { skeletonBlock } from '../../../shared/ui/skeleton.js';
-import { showToast } from '../../../shared/ui/toast.js';
+import { backLink } from '../../../components/back-link.js';
+import { sessionState } from '../../../state/session/session.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { confirmDialog } from '../../../components/confirm-dialog.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { clearFieldErrors, setFieldError } from '../../../components/form-field.js';
+import { skeletonBlock } from '../../../components/skeleton.js';
+import { showToast } from '../../../components/toast.js';
 import { vistaFormulario } from '../components/event-form-view.js';
 import {
   CAMPOS,
@@ -26,8 +26,8 @@ import {
   subirTrailer,
   validarEvento,
   valoresIniciales,
-} from '../studio.service.js';
-import { validarArchivoTrailer } from '../../../shared/utils/trailer.js';
+} from '../services/studio.service.js';
+import { validarArchivoTrailer } from '../../../utils/trailer.js';
 
 const TEXTO_CANCELAR =
   'Si cancelas este evento dejará de estar a la venta y las entradas ya vendidas se reembolsarán. Esta acción no se puede deshacer.';

@@ -1,6 +1,6 @@
-import { html } from '../../../shared/utils/html.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { kpiCard, kpiGrid } from '../../../shared/ui/kpi-card.js';
+import { html } from '../../../utils/html.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { kpiCard, kpiGrid } from '../../../components/kpi-card.js';
 
 const AYUDA = {
   disponible:

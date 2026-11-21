@@ -53,9 +53,9 @@ Patrones de experiencia observables en fuentes públicas de Veeps, adaptados a e
 
 ### 3.1 Principios
 1. **Feature-based:** el código se agrupa por **capacidad de negocio**, no por tipo de archivo. Todo lo de "checkout" vive junto.
-2. **Dependencias en un solo sentido:** `app → features → shared → core`. Un nivel inferior **nunca** importa de uno superior.
-3. **Una feature no importa los archivos internos de otra.** Solo puede usar su `index.js` (API pública) o comunicarse por `shared`/`core` (store, bus de eventos).
-4. **Capas dentro de cada feature:** `pages` (vistas) → `service` (lógica) → `api` (llamadas HTTP) → `core/http`.
+2. **Dependencias en un solo sentido:** `router → features → components/utils → state/services`. Un nivel inferior **nunca** importa de uno superior.
+3. **Una feature no importa los archivos internos de otra.** Solo puede usar su `index.js` (API pública) o comunicarse por `components`/`utils` o por `state` (store, bus de eventos).
+4. **Capas dentro de cada feature:** `pages` (vistas) → `services/*.service.js` (lógica) → `services/*.api.js` (llamadas HTTP) → `src/services/http`.
 5. **El servidor es la autoridad.** El frontend valida para dar buena experiencia; las reglas reales (RN-xx) las aplica el backend y el frontend muestra sus errores.
 
 ### 3.2 Estructura de carpetas
@@ -70,29 +70,30 @@ frontend/
 ├── tests/                          # pruebas con node --test (espejo de src/)
 └── src/
     ├── main.js                     # arranque: estilos, sesión, router
-    ├── app/                        # composición de la aplicación (conoce a todas las features)
+    ├── config.js                   # lee import.meta.env.VITE_*
+    ├── router/                     # ENRUTAMIENTO: composición de la app (conoce a todas las features)
     │   ├── routes.js               # tabla de rutas → carga diferida de cada feature
     │   ├── router.js               # router por hash (#/...)
+    │   ├── route-match.js          # encuentra la ruta que coincide con la URL
     │   ├── guards.js               # requiereSesion, requiereRol
-    │   └── layouts/                # public.layout.js · studio.layout.js · admin.layout.js
-    ├── core/                       # infraestructura sin lógica de negocio
-    │   ├── config.js               # lee import.meta.env.VITE_*
-    │   ├── http/
-    │   │   ├── api-client.js       # fetch + Bearer + refresh + errores normalizados
-    │   │   └── api-error.js        # class ApiError {status, codigo, mensaje, detalles}
-    │   ├── session/
-    │   │   ├── session.js          # tokens, usuario actual, login/logout
-    │   │   └── session-store.js
+    │   ├── layouts/                # public.layout.js · studio.layout.js · admin.layout.js
+    │   └── pages/                  # páginas del sistema (404, sin acceso)
+    ├── state/                      # GESTIÓN DE ESTADO
     │   ├── store.js                # store observable mínimo (get/set/subscribe)
-    │   └── event-bus.js            # eventos entre features (p. ej. 'session:cambio')
-    ├── shared/                     # reutilizable por todas las features
-    │   ├── ui/                     # componentes: navbar, footer, toast, modal, confirm-dialog,
-    │   │                           # pagination, skeleton, empty-state, form-field, spinner,
-    │   │                           # event-card, artist-card, live-badge, countdown, rail, avatar
-    │   ├── utils/                  # html.js (plantilla con escape), dom.js, format-money.js,
-    │   │                           # format-date.js, validators.js, query-string.js, debounce.js,
-    │   │                           # media-url.js, category-gradient.js
-    │   └── styles/                 # tokens.css · base.css · components.css · bootstrap-overrides.css
+    │   ├── event-bus.js            # eventos entre features (p. ej. 'session:cambio')
+    │   └── session/
+    │       ├── session.js          # tokens, usuario actual, login/logout
+    │       └── session-store.js
+    ├── services/                   # COMUNICACIÓN CON LA API REST
+    │   └── http/
+    │       ├── api-client.js       # fetch + Bearer + refresh + errores normalizados
+    │       └── api-error.js        # class ApiError {status, codigo, mensaje, detalles}
+    ├── components/                 # COMPONENTES REUTILIZABLES: navbar, footer, toast, modal,
+    │                               # confirm-dialog, pagination, skeleton, empty-state, form-field,
+    │                               # event-card, artist-card, hero, live-badge, countdown, rail…
+    ├── utils/                      # html.js (plantilla con escape), dom.js, format-money.js,
+    │                               # format-date.js, validators.js, query-string.js, trailer.js…
+    ├── styles/                     # tokens.css · base.css · components.css · bootstrap-overrides.css
     └── features/
         ├── auth/                   # login, registro (con consentimiento)
         ├── catalog/                # home, catálogo, detalle de evento, artistas, perfil de artista
@@ -107,19 +108,20 @@ Cada feature sigue esta forma (solo crea los archivos que necesite):
 ```
 features/<nombre>/
 ├── index.js                # API pública: exporta `routes` y lo que otras features puedan usar
-├── <nombre>.api.js         # funciones que llaman a la API (una por endpoint); sin lógica
-├── <nombre>.service.js     # reglas de UI, transformación, orquestación de varias llamadas
-├── pages/                  # una vista por pantalla: xxx.page.js
+├── pages/                  # PÁGINAS: una vista por pantalla (xxx.page.js)
 ├── components/             # componentes propios de la feature
+├── services/
+│   ├── <nombre>.api.js     # funciones que llaman a la API (una por endpoint); sin lógica
+│   └── <nombre>.service.js # reglas de UI, transformación, orquestación de varias llamadas
 └── <nombre>.css            # (opcional) estilos propios
 ```
 
 ### 3.3 Reglas de dependencia
-- `pages` pueden usar `service`, `components`, `shared` y `core/session`.
-- `service` puede usar `api` de su feature y `shared/utils`. **No** toca el DOM.
-- `api` solo usa `core/http/api-client`. **No** transforma datos de negocio.
-- `shared` **no** importa de `features` ni de `app`.
-- Si dos features necesitan lo mismo (p. ej. el botón de favorito en catálogo y en cuenta), el componente va a `shared/ui` o se exporta por el `index.js` de la feature dueña (`catalog` es dueña de `event-card` y del botón de favorito si depende de su lógica).
+- `pages` pueden usar los `services` de su feature, `components`, `utils` y `state/session`.
+- `*.service.js` puede usar el `*.api.js` de su feature y `utils`. **No** toca el DOM.
+- `*.api.js` solo usa `src/services/http/api-client`. **No** transforma datos de negocio.
+- `components` y `utils` **no** importan de `features` ni de `router`; `state` y `services` no importan de ninguna capa superior.
+- Si dos features necesitan lo mismo (p. ej. el botón de favorito en catálogo y en cuenta), el componente va a `components` o se exporta por el `index.js` de la feature dueña (`catalog` es dueña de `event-card` y del botón de favorito si depende de su lógica).
 
 ### 3.4 Modelo de páginas y renderizado (sin framework)
 Cada página es una función asíncrona que recibe el contexto de ruta y devuelve un objeto con su ciclo de vida:
@@ -137,13 +139,13 @@ export async function eventDetailPage(ctx) {
 }
 ```
 - El **router** monta `el`, llama a `destroy()` de la página anterior y **aborta** (`AbortController`) las peticiones en curso de la ruta que se abandona.
-- Para construir HTML se usa **siempre** la plantilla etiquetada `html` de `shared/utils/html.js`, que **escapa por defecto** todo valor interpolado. Para insertar HTML ya confiable hay que marcarlo explícitamente con `raw()`.
+- Para construir HTML se usa **siempre** la plantilla etiquetada `html` de `utils/html.js`, que **escapa por defecto** todo valor interpolado. Para insertar HTML ya confiable hay que marcarlo explícitamente con `raw()`.
 - Eventos con **delegación** (`el.addEventListener('click', e => e.target.closest('[data-action]')...)`); acciones nombradas con `data-action="..."`.
-- Estado local de página en variables de closure; estado compartido (sesión, favoritos en pantalla) en `core/store.js`.
+- Estado local de página en variables de closure; estado compartido (sesión, favoritos en pantalla) en `state/store.js`.
 
 ### 3.5 Router
 - **Por hash** (`#/eventos/123`): funciona con cualquier servidor estático sin configuración.
-- Tabla de rutas en `app/routes.js`; cada entrada: `{ path, loader: () => import('../features/...'), layout, guard }`. Carga **diferida** (`import()`) por feature.
+- Tabla de rutas en `router/routes.js`; cada entrada: `{ path, loader: () => import('../features/...'), layout, guard }`. Carga **diferida** (`import()`) por feature.
 - Parámetros `:id`, query string, ruta 404, scroll al inicio y foco al `<h1>` al navegar (accesibilidad), `document.title` por página.
 - Redirección tras login: `#/login?redirect=%23%2Fmis-eventos`. Validar que `redirect` empiece por `#/` (evita *open redirect*).
 
@@ -165,7 +167,7 @@ La API vive en `VITE_API_URL` (por defecto `http://localhost:5000/api/v1`). **An
 | Auth | `Authorization: Bearer <access_token>` |
 | Idempotencia | `PUT`/`DELETE` de favoritos y seguidos devuelven `204` aunque no cambie nada |
 
-### 4.2 Cliente HTTP (`core/http/api-client.js`)
+### 4.2 Cliente HTTP (`services/http/api-client.js`)
 - Prefija `VITE_API_URL`, envía `Content-Type: application/json` (excepto `FormData`, donde **no** se fija: lo pone el navegador).
 - Añade el `Authorization` si hay sesión. Las rutas públicas funcionan con y sin token (el detalle de evento devuelve `es_favorito` y `comprado` solo con sesión, así que **siempre se envía el token si existe**).
 - **Renovación automática:** ante `401` en un endpoint que no sea de auth, intenta **una vez** `POST /auth/refresh` (con *single-flight*: si varias peticiones fallan a la vez, hay un solo refresh) y reintenta. Si falla → cierra sesión y redirige a login conservando `redirect`.
@@ -182,7 +184,7 @@ La API vive en `VITE_API_URL` (por defecto `http://localhost:5000/api/v1`). **An
 - Errores `422`: `detalles` llega como `{campo: [mensajes]}`. `401` por defecto es `NO_AUTENTICADO`; `403` por rol, `ROL_NO_PERMITIDO`.
 - `POST /eventos` requiere `youtube_url` con un enlace HTTPS válido de YouTube; `GET /eventos/{id}` lo devuelve como tráiler promocional, no como transmisión completa.
 
-### 4.3 Sesión (`core/session`)
+### 4.3 Sesión (`state/session`)
 - **Access token: solo en memoria** (variable del módulo).
 - **Refresh token: `sessionStorage`** (sobrevive a recargar la página, se borra al cerrar la pestaña). Es una decisión de MVP; la limitación (no hay revocación en el servidor) se documenta en el README.
 - Al arrancar: si hay refresh token → `POST /auth/refresh` → `GET /usuarios/me` para recuperar el usuario. Mientras tanto se muestra un *skeleton*, no la pantalla de login.
@@ -303,7 +305,7 @@ Acciones destructivas o sensibles (suspender usuario/evento, rechazar retiro) us
 
 **Dirección:** oscuro, cinematográfico y enfocado en el contenido: pósters grandes, mucho aire, tipografía clara y un solo color de acento. Es una **identidad propia** (ver §1). La marca combina un símbolo original de música/video y el nombre leído de `VITE_APP_NAME`; no se usa ningún activo de Veeps.
 
-### 6.1 Tokens (en `shared/styles/tokens.css`)
+### 6.1 Tokens (en `styles/tokens.css`)
 ```css
 :root {
   /* Superficies */
@@ -328,7 +330,7 @@ Se sobreescriben las variables de Bootstrap (`--bs-body-bg`, `--bs-body-color`, 
 ### 6.2 Tipografía y escala
 Titulares: **Space Grotesk** (700). Texto e interfaz: **Inter** (400/500/600). Escala: 12 · 14 · 16 · 20 · 24 · 32 · 48. Etiquetas pequeñas en mayúsculas con `letter-spacing: .08em`. Interlineado 1,5 en texto corrido.
 
-### 6.3 Componentes (en `shared/ui`)
+### 6.3 Componentes (en `components`)
 | Componente | Descripción |
 |------------|-------------|
 | **Hero** | Imagen/gradiente a todo el ancho con degradado inferior, título grande, meta (artista · fecha), insignia y un CTA principal tipo píldora |
@@ -474,8 +476,8 @@ Si una fase del backend aún no existe, puedes avanzar con datos de ejemplo en `
 
 **Nunca hagas**
 - ❌ Añadir un framework (React/Vue/Angular/jQuery) ni TypeScript sin que el usuario lo pida.
-- ❌ Llamar a `fetch` fuera de `core/http/api-client.js`.
-- ❌ Importar archivos internos de otra feature (solo su `index.js`) o hacer que `shared`/`core` importen de `features`.
+- ❌ Llamar a `fetch` fuera de `services/http/api-client.js`.
+- ❌ Importar archivos internos de otra feature (solo su `index.js`) o hacer que `components`/`utils`/`state`/`services` importen de `features`.
 - ❌ Usar `innerHTML` con datos de la API sin escapar.
 - ❌ Guardar contraseñas, tokens de acceso, `stream_key` o datos de pago en `localStorage`/`sessionStorage` (solo el refresh token en `sessionStorage`).
 - ❌ Calcular comisiones, saldos ni montos en el cliente; todo dinero viene del servidor.
@@ -512,9 +514,9 @@ eventos `PROGRAMADO`/`EN_VIVO`; el Historial se arma en el cliente con el resto.
 
 **Convenciones que surgieron.**
 - Una feature pasa datos a otra por su `index.js` y por el bus de eventos (`compra:aprobada`).
-- `shared/ui` no conoce a las features: las tarjetas reciben el botón de favorito/seguir como parámetro
+- `components` no conoce a las features: las tarjetas reciben el botón de favorito/seguir como parámetro
   (`eventCard(e, {favorito})`, `artistCard(a, {accion})`); la lógica vive en `catalog`.
-- `chart.js` se importa solo en `shared/ui/bar-chart.js` y `hls.js` solo en `watch/player/hls-player.js`,
+- `chart.js` se importa solo en `components/bar-chart.js` y `hls.js` solo en `watch/player/hls-player.js`,
   siempre con `import()`. Toda gráfica lleva descripción accesible y una tabla equivalente dentro de un
   `div.visually-hidden` (nunca `.visually-hidden` sobre la `<table>`: ignora `width: 1px` y desborda).
 - Modales: se abren con `openModal`, que devuelve el foco a quien los abrió (Bootstrap no lo hace cuando
@@ -529,5 +531,5 @@ eventos `PROGRAMADO`/`EN_VIVO`; el Historial se arma en el cliente con el resto.
 **Pendiente de negocio (no de código).** El texto de la política de tratamiento de datos y su pantalla.
 
 **Auditoría.** `tests/auditoria/reglas.test.js` falla si alguien reintroduce `innerHTML` con datos, `fetch`
-fuera de `core/http`, almacenamiento distinto del refresh token, importaciones entre capas o features
+fuera de `services/http`, almacenamiento distinto del refresh token, importaciones entre capas o features
 fuera de `index.js`, cálculos de dinero, textos de planes/revisión, `TODO(Fase …)` o mocks.

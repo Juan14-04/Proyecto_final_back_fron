@@ -1,5 +1,5 @@
-import { html } from '../../../shared/utils/html.js';
-import { armarMes, etiquetaDiaLarga, etiquetaMes } from '../tickets.service.js';
+import { html } from '../../../utils/html.js';
+import { armarMes, etiquetaDiaLarga, etiquetaMes } from '../services/tickets.service.js';
 
 const DIAS_SEMANA = [
   ['L', 'lunes'],

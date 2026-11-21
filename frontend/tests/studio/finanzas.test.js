@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { ApiError } from '../../src/core/http/api-error.js';
+import { ApiError } from '../../src/services/http/api-error.js';
 import {
   construirRetiro,
   enmascararCuenta,
@@ -11,13 +11,13 @@ import {
   resumenGrafica,
   textoPico,
   validarRetiro,
-} from '../../src/features/studio/finanzas.service.js';
+} from '../../src/features/studio/services/finanzas.service.js';
 import { tarjetasSaldo } from '../../src/features/studio/components/saldo-cards.js';
 import {
   crearGraficaVentas,
   vistaGraficaVentas,
 } from '../../src/features/studio/components/sales-chart.js';
-import { kpiCard } from '../../src/shared/ui/kpi-card.js';
+import { kpiCard } from '../../src/components/kpi-card.js';
 
 const normal = (s) => String(s).replace(/\s+/g, ' ');
 const retiro = (extra = {}) => ({
@@ -178,7 +178,7 @@ test('chart.js solo se importa de forma diferida en la gráfica de barras compar
   const conChart = archivos.filter((f) => readFileSync(f, 'utf8').includes("'chart.js'"));
   assert.deepEqual(
     conChart.map((f) => f.replaceAll('\\', '/')),
-    ['src/shared/ui/bar-chart.js'],
+    ['src/components/bar-chart.js'],
   );
   const fuente = readFileSync(conChart[0], 'utf8');
   assert.ok(fuente.includes("import('chart.js')"));

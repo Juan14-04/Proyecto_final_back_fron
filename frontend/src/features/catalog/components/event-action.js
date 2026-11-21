@@ -1,5 +1,5 @@
-import { html } from '../../../shared/utils/html.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
+import { html } from '../../../utils/html.js';
+import { formatCop } from '../../../utils/format-money.js';
 
 const comprado = html`<p class="text-success fw-semibold">
   <i class="bi bi-check-circle-fill" aria-hidden="true"></i> Comprado

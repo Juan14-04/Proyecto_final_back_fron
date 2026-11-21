@@ -1,14 +1,14 @@
-import { html } from '../../../shared/utils/html.js';
-import { backLink } from '../../../shared/ui/back-link.js';
-import { fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { avatar, activarFallbackAvatares } from '../../../shared/ui/avatar.js';
-import { activarFallbackPortadas } from '../../../shared/ui/cover.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { skeletonBlock } from '../../../shared/ui/skeleton.js';
+import { html } from '../../../utils/html.js';
+import { backLink } from '../../../components/back-link.js';
+import { fromHtml, setHtml } from '../../../utils/dom.js';
+import { avatar, activarFallbackAvatares } from '../../../components/avatar.js';
+import { activarFallbackPortadas } from '../../../components/cover.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { skeletonBlock } from '../../../components/skeleton.js';
 import { activarFavoritos, eventCardConFavorito } from '../components/favorite-button.js';
 import { activarSeguir, followButton } from '../components/follow-button.js';
-import { cargarArtista, textoSeguidores } from '../catalog.service.js';
-import { precargarSocial, seguidos } from '../social.service.js';
+import { cargarArtista, textoSeguidores } from '../services/catalog.service.js';
+import { precargarSocial, seguidos } from '../services/social.service.js';
 
 function esqueleto() {
   return html`<div class="container py-4" role="status" aria-label="Cargando artista">

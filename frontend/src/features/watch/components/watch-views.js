@@ -1,9 +1,9 @@
-import { html } from '../../../shared/utils/html.js';
-import { backLink } from '../../../shared/ui/back-link.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { formatDateLong, formatTime } from '../../../shared/utils/format-date.js';
-import { coverMedia } from '../../../shared/ui/cover.js';
-import { liveBadge, replayBadge } from '../../../shared/ui/live-badge.js';
+import { html } from '../../../utils/html.js';
+import { backLink } from '../../../components/back-link.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { formatDateLong, formatTime } from '../../../utils/format-date.js';
+import { coverMedia } from '../../../components/cover.js';
+import { liveBadge, replayBadge } from '../../../components/live-badge.js';
 import { MENSAJES_CHAT_INICIALES } from './simulated-chat.js';
 
 const volverAlEvento = (evento) =>

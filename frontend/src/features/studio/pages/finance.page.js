@@ -1,13 +1,13 @@
 import '../studio.css';
-import { html } from '../../../shared/utils/html.js';
-import { delegate, fromHtml, setHtml } from '../../../shared/utils/dom.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { formatDateMedium, formatTime } from '../../../shared/utils/format-date.js';
-import { confirmDialog } from '../../../shared/ui/confirm-dialog.js';
-import { emptyState, errorState } from '../../../shared/ui/empty-state.js';
-import { clearFieldErrors, formField, setFieldError } from '../../../shared/ui/form-field.js';
-import { pagination } from '../../../shared/ui/pagination.js';
-import { showToast } from '../../../shared/ui/toast.js';
+import { html } from '../../../utils/html.js';
+import { delegate, fromHtml, setHtml } from '../../../utils/dom.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { formatDateMedium, formatTime } from '../../../utils/format-date.js';
+import { confirmDialog } from '../../../components/confirm-dialog.js';
+import { emptyState, errorState } from '../../../components/empty-state.js';
+import { clearFieldErrors, formField, setFieldError } from '../../../components/form-field.js';
+import { pagination } from '../../../components/pagination.js';
+import { showToast } from '../../../components/toast.js';
 import { tarjetasSaldo } from '../components/saldo-cards.js';
 import {
   ETIQUETA_RETIRO,
@@ -19,7 +19,7 @@ import {
   listarRetiros,
   solicitarRetiro,
   validarRetiro,
-} from '../finanzas.service.js';
+} from '../services/finanzas.service.js';
 
 const skeletonSaldo = html`<div class="kpi-grid" role="status" aria-label="Cargando saldo">
   ${Array.from(

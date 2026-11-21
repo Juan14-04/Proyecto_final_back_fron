@@ -1,4 +1,4 @@
-import { setFieldError } from '../../../shared/ui/form-field.js';
+import { setFieldError } from '../../../components/form-field.js';
 
 /** Alerta general del formulario (`role="alert"`). Usa textContent: nunca interpreta HTML. */
 export function mostrarAlerta(alerta, mensaje) {

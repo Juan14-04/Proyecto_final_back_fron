@@ -1,9 +1,9 @@
-import { html } from '../../../shared/utils/html.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { formatDateTime } from '../../../shared/utils/format-date.js';
-import { coverMedia } from '../../../shared/ui/cover.js';
-import { estadoBadge } from '../../../shared/ui/live-badge.js';
-import { ETIQUETA_COMPRA, accionDeCompra } from '../tickets.service.js';
+import { html } from '../../../utils/html.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { formatDateTime } from '../../../utils/format-date.js';
+import { coverMedia } from '../../../components/cover.js';
+import { estadoBadge } from '../../../components/live-badge.js';
+import { ETIQUETA_COMPRA, accionDeCompra } from '../services/tickets.service.js';
 
 function botonDeAccion(accion, compra) {
   if (accion.tipo === 'VER') {

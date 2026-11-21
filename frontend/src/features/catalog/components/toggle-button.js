@@ -1,8 +1,8 @@
-import { isAuthenticated } from '../../../core/session/session.js';
+import { isAuthenticated } from '../../../state/session/session.js';
 
 /** Aviso por defecto: carga el toast solo si hace falta (así este módulo no depende del DOM al importarse). */
 const avisarPorDefecto = (mensaje) =>
-  import('../../../shared/ui/toast.js').then((m) => m.showToast(mensaje, 'danger'));
+  import('../../../components/toast.js').then((m) => m.showToast(mensaje, 'danger'));
 
 /**
  * Activa, por delegación en `raiz`, los botones que alternan un estado (favorito, seguir) con

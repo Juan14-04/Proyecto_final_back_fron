@@ -1,11 +1,11 @@
-import { html } from '../../../shared/utils/html.js';
-import { liveBadge } from '../../../shared/ui/live-badge.js';
+import { html } from '../../../utils/html.js';
+import { liveBadge } from '../../../components/live-badge.js';
 import {
   ETIQUETA_ESTADO_COMPRA,
   ETIQUETA_ESTADO_EVENTO,
   ETIQUETA_ESTADO_RETIRO,
   ETIQUETA_ROL,
-} from '../admin.service.js';
+} from '../services/admin.service.js';
 
 /** Celda sin dato: un guion atenuado, para que cada columna tenga siempre un único valor. */
 export const sinDato = () => html`<span class="text-muted-2">—</span>`;

@@ -1,4 +1,4 @@
-import { html } from '../../../shared/utils/html.js';
+import { html } from '../../../utils/html.js';
 
 /** Selector de filtro con una opción "Todos" inicial. `opciones`: pares [valor, etiqueta]. */
 export function filtroSelect({ name, label, valor = '', opciones, todos = 'Todos' }) {

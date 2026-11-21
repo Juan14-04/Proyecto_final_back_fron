@@ -1,6 +1,6 @@
-import { html } from '../../../shared/utils/html.js';
-import { formatCop } from '../../../shared/utils/format-money.js';
-import { formatDateMedium, formatTime } from '../../../shared/utils/format-date.js';
+import { html } from '../../../utils/html.js';
+import { formatCop } from '../../../utils/format-money.js';
+import { formatDateMedium, formatTime } from '../../../utils/format-date.js';
 import {
   ESTADOS_COMPRA,
   METODOS_PAGO,
@@ -8,7 +8,7 @@ import {
   filtrosAQuery,
   leerFiltrosCompras,
   validarRango,
-} from '../admin.service.js';
+} from '../services/admin.service.js';
 import { crearPaginaLista } from '../components/admin-list.js';
 import { badgeEstadoCompra, badgeEstadoEvento } from '../components/admin-ui.js';
 import { verDetalles } from '../components/dialogs.js';

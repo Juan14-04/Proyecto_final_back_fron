@@ -1,12 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ApiError } from '../../src/core/http/api-error.js';
+import { ApiError } from '../../src/services/http/api-error.js';
 import {
   accionTrasCompra,
   esperarMs,
   iniciarCompra,
   sondearCompra,
-} from '../../src/features/checkout/checkout.service.js';
+} from '../../src/features/checkout/services/checkout.service.js';
 
 const compra = (extra = {}) => ({
   id: 'c1',
